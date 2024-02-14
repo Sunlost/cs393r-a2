@@ -1,0 +1,2066 @@
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl -0.603229
+chosen path's clearance -0.103586
+chosen path's curvature -0.603229
+chosen path's closest -0.103586
+chosen path's obstruction -0.603229
+chosen path's clearance -0.103586
+
+chosen path's fpl -0.600871
+chosen path's clearance -0.098408
+chosen path's curvature -0.600871
+chosen path's closest -0.098408
+chosen path's obstruction -0.600871
+chosen path's clearance -0.098408
+
+chosen path's fpl -0.606867
+chosen path's clearance -0.0985809
+chosen path's curvature -0.606867
+chosen path's closest -0.0985809
+chosen path's obstruction -0.606867
+chosen path's clearance -0.0985809
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl -0.608745
+chosen path's clearance -0.102086
+chosen path's curvature -0.608745
+chosen path's closest -0.102086
+chosen path's obstruction -0.608745
+chosen path's clearance -0.102086
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 100
+chosen path's clearance -0.6853
+chosen path's curvature 100
+chosen path's closest -0.6853
+chosen path's obstruction 100
+chosen path's clearance -0.6853
+
+chosen path's fpl 100
+chosen path's clearance -0.673624
+chosen path's curvature 100
+chosen path's closest -0.673624
+chosen path's obstruction 100
+chosen path's clearance -0.673624
+
+chosen path's fpl 100
+chosen path's clearance -0.684437
+chosen path's curvature 100
+chosen path's closest -0.684437
+chosen path's obstruction 100
+chosen path's clearance -0.684437
+
+chosen path's fpl 100
+chosen path's clearance -0.668298
+chosen path's curvature 100
+chosen path's closest -0.668298
+chosen path's obstruction 100
+chosen path's clearance -0.668298
+
+chosen path's fpl 100
+chosen path's clearance -0.675952
+chosen path's curvature 100
+chosen path's closest -0.675952
+chosen path's obstruction 100
+chosen path's clearance -0.675952
+
+chosen path's fpl 100
+chosen path's clearance -0.670257
+chosen path's curvature 100
+chosen path's closest -0.670257
+chosen path's obstruction 100
+chosen path's clearance -0.670257
+
+chosen path's fpl 100
+chosen path's clearance -0.656305
+chosen path's curvature 100
+chosen path's closest -0.656305
+chosen path's obstruction 100
+chosen path's clearance -0.656305
+
+chosen path's fpl -0.48461
+chosen path's clearance 0.00128984
+chosen path's curvature -0.48461
+chosen path's closest 0.00128984
+chosen path's obstruction -0.48461
+chosen path's clearance 0.00128984
+
+chosen path's fpl -0.562817
+chosen path's clearance -0.00619488
+chosen path's curvature -0.562817
+chosen path's closest -0.00619488
+chosen path's obstruction -0.562817
+chosen path's clearance -0.00619488
+
+chosen path's fpl -0.604889
+chosen path's clearance -0.00571714
+chosen path's curvature -0.604889
+chosen path's closest -0.00571714
+chosen path's obstruction -0.604889
+chosen path's clearance -0.00571714
+
+chosen path's fpl -0.607941
+chosen path's clearance -0.0145075
+chosen path's curvature -0.607941
+chosen path's closest -0.0145075
+chosen path's obstruction -0.607941
+chosen path's clearance -0.0145075
+
+chosen path's fpl -0.608301
+chosen path's clearance -0.00355856
+chosen path's curvature -0.608301
+chosen path's closest -0.00355856
+chosen path's obstruction -0.608301
+chosen path's clearance -0.00355856
+
+chosen path's fpl -0.608168
+chosen path's clearance -0.00695144
+chosen path's curvature -0.608168
+chosen path's closest -0.00695144
+chosen path's obstruction -0.608168
+chosen path's clearance -0.00695144
+
+chosen path's fpl -0.607665
+chosen path's clearance -0.00586306
+chosen path's curvature -0.607665
+chosen path's closest -0.00586306
+chosen path's obstruction -0.607665
+chosen path's clearance -0.00586306
+
+chosen path's fpl -0.608176
+chosen path's clearance -0.00345104
+chosen path's curvature -0.608176
+chosen path's closest -0.00345104
+chosen path's obstruction -0.608176
+chosen path's clearance -0.00345104
+
+chosen path's fpl -0.574996
+chosen path's clearance 0.0156462
+chosen path's curvature -0.574996
+chosen path's closest 0.0156462
+chosen path's obstruction -0.574996
+chosen path's clearance 0.0156462
+
+chosen path's fpl -0.55158
+chosen path's clearance 0.0154481
+chosen path's curvature -0.55158
+chosen path's closest 0.0154481
+chosen path's obstruction -0.55158
+chosen path's clearance 0.0154481
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 0
+chosen path's clearance 6.94483e-310
+chosen path's curvature 0
+chosen path's closest 6.94483e-310
+chosen path's obstruction 0
+chosen path's clearance 6.94483e-310
+
+chosen path's fpl 100
+chosen path's clearance -0.692749
+chosen path's curvature 100
+chosen path's closest -0.692749
+chosen path's obstruction 100
+chosen path's clearance -0.692749
+
+chosen path's fpl 100
+chosen path's clearance -0.694027
+chosen path's curvature 100
+chosen path's closest -0.694027
+chosen path's obstruction 100
+chosen path's clearance -0.694027
+
+chosen path's fpl 100
+chosen path's clearance -0.679426
+chosen path's curvature 100
+chosen path's closest -0.679426
+chosen path's obstruction 100
+chosen path's clearance -0.679426
+
+chosen path's fpl 100
+chosen path's clearance -0.686947
+chosen path's curvature 100
+chosen path's closest -0.686947
+chosen path's obstruction 100
+chosen path's clearance -0.686947
+
+chosen path's fpl 100
+chosen path's clearance -0.670848
+chosen path's curvature 100
+chosen path's closest -0.670848
+chosen path's obstruction 100
+chosen path's clearance -0.670848
+
+chosen path's fpl 100
+chosen path's clearance -0.680849
+chosen path's curvature 100
+chosen path's closest -0.680849
+chosen path's obstruction 100
+chosen path's clearance -0.680849
+
+chosen path's fpl 100
+chosen path's clearance -0.662582
+chosen path's curvature 100
+chosen path's closest -0.662582
+chosen path's obstruction 100
+chosen path's clearance -0.662582
+
+chosen path's fpl 100
+chosen path's clearance -0.666056
+chosen path's curvature 100
+chosen path's closest -0.666056
+chosen path's obstruction 100
+chosen path's clearance -0.666056
+
+chosen path's fpl 100
+chosen path's clearance -0.653966
+chosen path's curvature 100
+chosen path's closest -0.653966
+chosen path's obstruction 100
+chosen path's clearance -0.653966
+
+chosen path's fpl 100
+chosen path's clearance -0.642173
+chosen path's curvature 100
+chosen path's closest -0.642173
+chosen path's obstruction 100
+chosen path's clearance -0.642173
+
+chosen path's fpl 100
+chosen path's clearance -0.633101
+chosen path's curvature 100
+chosen path's closest -0.633101
+chosen path's obstruction 100
+chosen path's clearance -0.633101
+
+chosen path's fpl 100
+chosen path's clearance -0.619874
+chosen path's curvature 100
+chosen path's closest -0.619874
+chosen path's obstruction 100
+chosen path's clearance -0.619874
+
+chosen path's fpl 100
+chosen path's clearance -0.594664
+chosen path's curvature 100
+chosen path's closest -0.594664
+chosen path's obstruction 100
+chosen path's clearance -0.594664
+
+chosen path's fpl -0.607772
+chosen path's clearance 7.64973
+chosen path's curvature -0.607772
+chosen path's closest 7.64973
+chosen path's obstruction -0.607772
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.608303
+chosen path's clearance 7.64973
+chosen path's curvature -0.608303
+chosen path's closest 7.64973
+chosen path's obstruction -0.608303
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.607008
+chosen path's clearance 7.64973
+chosen path's curvature -0.607008
+chosen path's closest 7.64973
+chosen path's obstruction -0.607008
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.608225
+chosen path's clearance 7.64973
+chosen path's curvature -0.608225
+chosen path's closest 7.64973
+chosen path's obstruction -0.608225
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.608099
+chosen path's clearance 7.64973
+chosen path's curvature -0.608099
+chosen path's closest 7.64973
+chosen path's obstruction -0.608099
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.600466
+chosen path's clearance 7.64973
+chosen path's curvature -0.600466
+chosen path's closest 7.64973
+chosen path's obstruction -0.600466
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.597965
+chosen path's clearance 7.64973
+chosen path's curvature -0.597965
+chosen path's closest 7.64973
+chosen path's obstruction -0.597965
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.575744
+chosen path's clearance 7.64973
+chosen path's curvature -0.575744
+chosen path's closest 7.64973
+chosen path's obstruction -0.575744
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.562885
+chosen path's clearance 7.64973
+chosen path's curvature -0.562885
+chosen path's closest 7.64973
+chosen path's obstruction -0.562885
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.558166
+chosen path's clearance 7.64973
+chosen path's curvature -0.558166
+chosen path's closest 7.64973
+chosen path's obstruction -0.558166
+chosen path's clearance 7.64973
+
+chosen path's fpl -0.559638
+chosen path's clearance 7.64973
+chosen path's curvature -0.559638
+chosen path's closest 7.64973
+chosen path's obstruction -0.559638
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 5.5727
+chosen path's curvature 5.53573
+chosen path's closest 5.5727
+chosen path's obstruction 5.53573
+chosen path's clearance 5.5727
+
+chosen path's fpl 5.53573
+chosen path's clearance 5.69631
+chosen path's curvature 5.53573
+chosen path's closest 5.69631
+chosen path's obstruction 5.53573
+chosen path's clearance 5.69631
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.12433
+chosen path's curvature 5.53573
+chosen path's closest 7.12433
+chosen path's obstruction 5.53573
+chosen path's clearance 7.12433
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 6.52735
+chosen path's curvature 5.53573
+chosen path's closest 6.52735
+chosen path's obstruction 5.53573
+chosen path's clearance 6.52735
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.46011
+chosen path's curvature 5.53573
+chosen path's closest 7.46011
+chosen path's obstruction 5.53573
+chosen path's clearance 7.46011
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.28555
+chosen path's curvature 100
+chosen path's closest 7.28555
+chosen path's obstruction 100
+chosen path's clearance 7.28555
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.16045
+chosen path's curvature 5.53573
+chosen path's closest 7.16045
+chosen path's obstruction 5.53573
+chosen path's clearance 7.16045
+
+chosen path's fpl 5.53573
+chosen path's clearance 6.48288
+chosen path's curvature 5.53573
+chosen path's closest 6.48288
+chosen path's obstruction 5.53573
+chosen path's clearance 6.48288
+
+chosen path's fpl 100
+chosen path's clearance 7.03423
+chosen path's curvature 100
+chosen path's closest 7.03423
+chosen path's obstruction 100
+chosen path's clearance 7.03423
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 6.73826
+chosen path's curvature 100
+chosen path's closest 6.73826
+chosen path's obstruction 100
+chosen path's clearance 6.73826
+
+chosen path's fpl 100
+chosen path's clearance 7.39825
+chosen path's curvature 100
+chosen path's closest 7.39825
+chosen path's obstruction 100
+chosen path's clearance 7.39825
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.47463
+chosen path's curvature 5.53573
+chosen path's closest 7.47463
+chosen path's obstruction 5.53573
+chosen path's clearance 7.47463
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.59444
+chosen path's curvature 5.53573
+chosen path's closest 7.59444
+chosen path's obstruction 5.53573
+chosen path's clearance 7.59444
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 6.7136
+chosen path's curvature 100
+chosen path's closest 6.7136
+chosen path's obstruction 100
+chosen path's clearance 6.7136
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 6.7082
+chosen path's curvature 100
+chosen path's closest 6.7082
+chosen path's obstruction 100
+chosen path's clearance 6.7082
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.1607
+chosen path's curvature 100
+chosen path's closest 7.1607
+chosen path's obstruction 100
+chosen path's clearance 7.1607
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 6.70818
+chosen path's curvature 100
+chosen path's closest 6.70818
+chosen path's obstruction 100
+chosen path's clearance 6.70818
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.452
+chosen path's curvature 100
+chosen path's closest 7.452
+chosen path's obstruction 100
+chosen path's clearance 7.452
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.43746
+chosen path's curvature 100
+chosen path's closest 7.43746
+chosen path's obstruction 100
+chosen path's clearance 7.43746
+
+chosen path's fpl 100
+chosen path's clearance 7.64973
+chosen path's curvature 100
+chosen path's closest 7.64973
+chosen path's obstruction 100
+chosen path's clearance 7.64973
+
+chosen path's fpl 100
+chosen path's clearance 7.27476
+chosen path's curvature 100
+chosen path's closest 7.27476
+chosen path's obstruction 100
+chosen path's clearance 7.27476
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+chosen path's fpl 5.53573
+chosen path's clearance 7.64973
+chosen path's curvature 5.53573
+chosen path's closest 7.64973
+chosen path's obstruction 5.53573
+chosen path's clearance 7.64973
+
+Exiting.
