@@ -69,6 +69,15 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
                                             float angle_min,
                                             float angle_max,
                                             vector<Vector2f>* scan_ptr) {
+  // loc // robot's pose loc
+  // angle // robot's pose angle
+  // num_ranges // number of rays to use
+  // range_min // Minimum observable range
+  // range_max // Maximum observable range
+  // angle_min // Angle of the last ray
+  // angle_max // Angle of the first ray
+  // scan_ptr // save the predicted point cloud? aka save point of either intersection with wall or point at range_max
+
   vector<Vector2f>& scan = *scan_ptr;
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
@@ -111,6 +120,15 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       printf("No intersection\n");
     }
   }
+
+  // TODO:
+  // iterate through scan to set points as in line 91
+  // iterate through map to check for collisions as in line 97-114
+    // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
+    // check for intersection with this line and the map line
+    // if intersection exists, "first" collision wins, so use continue and go on to next 
+    // else if no collision, set scan[i] to the point at range_max
+
 }
 
 void ParticleFilter::Update(const vector<float>& ranges,
@@ -124,6 +142,29 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // observations for each particle, and assign weights to the particles based
   // on the observation likelihood computed by relating the observation to the
   // predicted point cloud.
+
+  // loop over particle vector
+  // TODO: STEP 1
+  // use GetPredictedPointCloud to predict expected observations for particles conditioned on the map
+    // init a scan_ptr vector of points
+    // pass in robot's location and angle
+    // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
+    // ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
+    //                                           const float angle,
+    //                                           int num_ranges,
+    //                                           range_min,
+    //                                           range_max,
+    //                                           angle_min,
+    //                                           angle_max,
+    //                                           vector<Vector2f>* scan_ptr)
+
+  // TODO: STEP 2
+  // compare particle observation to prediction
+
+  // TODO: STEP 3
+  // assign weight to particle based on observation likelihood
+
+
 }
 
 void ParticleFilter::Resample() {
@@ -167,6 +208,24 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   float x = rng_.Gaussian(0.0, 2.0);
   printf("Random number drawn from Gaussian distribution with 0 mean and "
          "standard deviation of 2 : %f\n", x);
+
+  // inside of a loop over particles
+  // TODO: STEP 1
+  // calc x_hat, y_hat, and theta_hat from odom_loc and odom_angle
+
+  // generate e_x and e_y from a distribution with a standard deviation of k_1*mag(x_hat^2 + y_hat^2) + k_2*abs(theta_hat)
+
+  // generate e_theta from a distribution with a standard deviation of k_3*mag(x_hat^2 + y_hat^2) + k_4*abs(theta_hat)
+
+  // d_x = x_hat + e_x
+  // d_y = y_hat + e_y
+  // d_theta = theta_hat + e_theta
+
+  // TODO: STEP 2
+  // calculate robot's current location with GetLocation()
+  // model a particle some d_x, d_y, and d_theta away from current location
+  // push particle to particle vector
+
 }
 
 void ParticleFilter::Initialize(const string& map_file,
@@ -176,6 +235,11 @@ void ParticleFilter::Initialize(const string& map_file,
   // was received from the log. Initialize the particles accordingly, e.g. with
   // some distribution around the provided location and angle.
   map_.Load(map_file);
+
+  // TODO
+  // initialize vector of particles with GetParticles
+  // initialize location estimate for robot
+
 }
 
 void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr, 
