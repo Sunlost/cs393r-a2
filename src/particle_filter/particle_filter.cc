@@ -160,17 +160,17 @@ void ParticleFilter::Update(const vector<float>& ranges,
 
   // TODO: STEP 2
   // compare particle observation to prediction
-  // 2d lidar observation likelihood function
-  // loop over scans
-  // tunable param: sd
-  // s_hat is basically (dist btwn laser and scan[i] points) - range_min
-  // but what is s
-  // anyway
-  // log_lik -= ((s_hat - s)/sd^2)^2
+  // ranges holds our observation s, scan_ptr (kinda) holds our prediction s_hat
+  // loop over both of these
+    // tunable param: sd
+    // s_hat is basically (dist btwn laser and scan[i] points) - range_min
+    // but what is s
+    // anyway
+    // log_lik -= ((s_hat - s)/sd^2)^2
 
   // TODO: STEP 3
-  // assign weight to particle based on observation likelihood
-  // set particle weight to log_lik?
+  // assign weight to particle
+  // particle struct has field weight, set that to log_lik?
   /* Dr. Biswas's answer from 2/14
      These [point-cloud point location] estimations are based on the particles that we are modeling, 
      trying to guess what the point cloud would look like from that particle's perspective 
@@ -284,8 +284,8 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   angle = 0;
 
   // TODO
-  // so I think this is actually the mean pose and mean angle estimates?
-  
+  // this is different from mean pose -- need to figure out where that goes, maybe in predict?
+  // pick particle based on the best observation likelihood (aka its weight)
 }
 
 
