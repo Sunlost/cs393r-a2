@@ -143,11 +143,10 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // on the observation likelihood computed by relating the observation to the
   // predicted point cloud.
 
-  // loop over particle vector
   // TODO: STEP 1
-  // use GetPredictedPointCloud to predict expected observations for particles conditioned on the map
-    // init a scan_ptr vector of points
-    // pass in robot's location and angle
+  // use GetPredictedPointCloud to predict expected observations for particle conditioned on the map
+    // init a scan_ptr vector of points... size should be num_ranges
+    // pass in robot's location and angle for loc and angle
     // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
     // ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
     //                                           const float angle,
@@ -160,11 +159,17 @@ void ParticleFilter::Update(const vector<float>& ranges,
 
   // TODO: STEP 2
   // compare particle observation to prediction
+  // 2d lidar observation likelihood function
+  // loop over scans
+  // tunable param: sd
+  // s_hat is basically (dist btwn laser and scan[i] points) - range_min
+  // but what is s
+  // anyway
+  // log_lik -= ((s_hat - s)/sd^2)^2
 
   // TODO: STEP 3
   // assign weight to particle based on observation likelihood
-
-
+  // set particle weight to log_lik?
 }
 
 void ParticleFilter::Resample() {
@@ -192,6 +197,20 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
                                   float angle_max) {
   // A new laser scan observation is available (in the laser frame)
   // Call the Update and Resample steps as necessary.
+
+  // TODO STEP 1: figure out how to call update
+  // init a num_updates variable
+  // tunable param: d
+  // if we have traveled at least distance d
+      // loop over particle vector
+        // ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max,
+        //                           Particle* p_ptr)
+        // increment num_updates
+
+  // TODO STEP 2: figure out how to call resample
+  // tunable param: n
+  // if it has been n updates since our last resample
+    // ParticleFilter::Resample()
 }
 
 void ParticleFilter::Predict(const Vector2f& odom_loc,
@@ -211,6 +230,7 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
 
   // inside of a loop over particles
   // TODO: STEP 1
+  // tunable params: k_1, k_2, k_3, k_4
   // calc x_hat, y_hat, and theta_hat from odom_loc and odom_angle
 
   // generate e_x and e_y from a distribution with a standard deviation of k_1*mag(x_hat^2 + y_hat^2) + k_2*abs(theta_hat)
@@ -251,6 +271,10 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   // variables to return them. Modify the following assignments:
   loc = Vector2f(0, 0);
   angle = 0;
+
+  // TODO
+  // so I think this is actually the mean pose and mean angle estimates?
+  
 }
 
 
