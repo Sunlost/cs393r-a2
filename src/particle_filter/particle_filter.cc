@@ -79,6 +79,16 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // scan_ptr // save the predicted point cloud? aka save point of either intersection with wall or point at range_max
 
   vector<Vector2f>& scan = *scan_ptr;
+    /*
+     These estimations are based on the particles that we are modeling, 
+     trying to guess what the point cloud would look like from that particle's perspective 
+     
+     If the particle's predicted point_cloud matches with the "ground truth" (our current LIDAR point_cloud?)
+     that is considered a "good" particle, and "bad" vice-versa. This will inform our weightings on the 
+     particles. 
+     
+     need more clarification on what this "ground truth" is and how we use it...
+  */
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
   // parameters.
