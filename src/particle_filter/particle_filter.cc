@@ -69,66 +69,49 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
                                             float angle_min,
                                             float angle_max,
                                             vector<Vector2f>* scan_ptr) {
-  // loc // robot's pose loc
-  // angle // robot's pose angle
-  // num_ranges // number of rays to use
-  // range_min // Minimum observable range
-  // range_max // Maximum observable range
-  // angle_min // Angle of the last ray
-  // angle_max // Angle of the first ray
-  // scan_ptr // save the predicted point cloud? aka save point of either intersection with wall or point at range_max
 
+  // TODO: figure out what frame of reference to use lawl
+  // right now I'm using car's
   vector<Vector2f>& scan = *scan_ptr;
+  Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
   // parameters.
   // This is NOT the motion model predict step: it is the prediction of the
   // expected observations, to be used for the update step.
 
-  // Note: The returned values must be set using the `scan` variable:
   scan.resize(num_ranges);
-  // Fill in the entries of scan using array writes, e.g. scan[i] = ...
+  // iterate through scan to set points for each ray
   for (size_t i = 0; i < scan.size(); ++i) {
-    scan[i] = Vector2f(0, 0);
-  }
-
-  // The line segments in the map are stored in the `map_.lines` variable. You
-  // can iterate through them as:
-  for (size_t i = 0; i < map_.lines.size(); ++i) {
-    const line2f map_line = map_.lines[i];
-    // The line2f class has helper functions that will be useful.
-    // You can create a new line segment instance as follows, for :
-    line2f my_line(1, 2, 3, 4); // Line segment from (1,2) to (3.4).
-    // Access the end points using `.p0` and `.p1` members:
-    printf("P0: %f, %f P1: %f,%f\n", 
-           my_line.p0.x(),
-           my_line.p0.y(),
-           my_line.p1.x(),
-           my_line.p1.y());
-
-    // Check for intersections:
-    bool intersects = map_line.Intersects(my_line);
-    // You can also simultaneously check for intersection, and return the point
-    // of intersection:
-    Vector2f intersection_point; // Return variable
-    intersects = map_line.Intersection(my_line, &intersection_point);
-    if (intersects) {
-      printf("Intersects at %f,%f\n", 
-             intersection_point.x(),
-             intersection_point.y());
-    } else {
-      printf("No intersection\n");
+    // iterate through map to check for collisions
+    for (size_t j = 0; j < map_.lines.size(); ++j) {
+      // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
+      const line2f map_line = map_.lines[j];
+      // need to use math to calculate endpoint of the line based on range_max. treat laser location as point 0
+      // 10 is a magic number rn describing the angle increment. we should tune that (and by extension num_ranges)
+      float alpha = angle_min + 10*i;
+      // the range max point
+      Eigen::Vector2f rm_pt(range_max * sin(alpha), range_max * cos(alpha));
+      line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
+      // Access the end points using `.p0` and `.p1` members:
+      printf("P0: %f, %f P1: %f,%f\n", 
+            my_line.p0.x(),
+            my_line.p0.y(),
+            my_line.p1.x(),
+            my_line.p1.y());
+      // check for intersection with this line and the map line
+      Vector2f intersection_point; // Return variable
+      bool intersects = map_line.Intersection(my_line, &intersection_point);
+      if (intersects) {
+        // if intersection exists, "first" collision wins, so use continue and go on to next 
+        scan[i] = intersection_point;
+        continue;
+      } else {
+        // else if no collision, set scan[i] to the point at range_max
+        scan[i] = rm_pt;
+      }
     }
   }
-
-  // TODO:
-  // iterate through scan to set points as in line 91
-  // iterate through map to check for collisions as in line 97-114
-    // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
-    // check for intersection with this line and the map line
-    // if intersection exists, "first" collision wins, so use continue and go on to next 
-    // else if no collision, set scan[i] to the point at range_max
-
 }
 
 void ParticleFilter::Update(const vector<float>& ranges,
@@ -147,16 +130,16 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // TODO: STEP 1
   // use GetPredictedPointCloud to predict expected observations for particle conditioned on the map
     // init a scan_ptr vector of points... size should be num_ranges
+    // option to make scan_ptr the length of ranges or to make them like every 10th ray
+    // tunable param: num_ranges->aka the 10 thing.
+    int num_ranges = (angle_max - angle_min) / 10;
+    std::vector<Eigen::Vector2f> scan_ptr(num_ranges);
     // pass in robot's location and angle for loc and angle
+    Eigen::Vector2f loc;
+    float angle;
+    GetLocation(&loc, &angle);
     // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
-    // ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
-    //                                           const float angle,
-    //                                           int num_ranges,
-    //                                           range_min,
-    //                                           range_max,
-    //                                           angle_min,
-    //                                           angle_max,
-    //                                           vector<Vector2f>* scan_ptr)
+    ParticleFilter::GetPredictedPointCloud(const &loc, const &angle, num_ranges, range_min, range_max, angle_min, angle_max, scan_ptr);
 
   // TODO: STEP 2
   // compare particle observation to prediction
@@ -270,8 +253,7 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   // d_theta = theta_hat + e_theta
 
   // TODO: STEP 2
-  // calculate robot's current location with GetLocation()
-  // model a particle some d_x, d_y, and d_theta away from current location
+  // model a particle some d_x, d_y, and d_theta away from old particle location
   // push particle to particle vector
 
 }
