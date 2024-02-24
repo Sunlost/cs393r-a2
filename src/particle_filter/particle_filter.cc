@@ -194,6 +194,23 @@ void ParticleFilter::Resample() {
   // After resampling:
   // particles_ = new_particles;
 
+  /*
+    ED: Either we keep some tunable absolute threshold for the weights for discarding
+    old unlikely particles 
+    OR
+    could figure out the range of of weights we have just calculated, figure out threshold and remove particles. 
+    Don't filter out too many particles, maybe start by dropping 30% of the range of weights? 
+    
+    The latter sounds more correct.
+
+    also need to clarify what they mean about "duplication", whether that is copying over an old point 
+    from the old particles to the new ones 
+    or 
+    actually duplicating the particles s.t where there was one particle present in the old set, now there would be two. 
+    
+    The former sounds like the correct way.
+  */ 
+
   // You will need to use the uniform random number generator provided. For
   // example, to generate a random number between 0 and 1:
   float x = rng_.UniformRandom(0, 1);
