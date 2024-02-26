@@ -68,11 +68,11 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
                                             float range_max,
                                             float angle_min,
                                             float angle_max,
-                                            vector<Vector2f>* scan_ptr) {
+                                            std::vector<Eigen::Vector2f>* scan_ptr) {
 
   // TODO: figure out what frame of reference to use lawl
   // right now I'm using car's
-  vector<Vector2f>& scan = *scan_ptr;
+  std::vector<Eigen::Vector2f>& scan = *scan_ptr;
   Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
@@ -103,8 +103,9 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       Vector2f intersection_point; // Return variable
       bool intersects = map_line.Intersection(my_line, &intersection_point);
       if (intersects) {
-        // if intersection exists, "first" collision wins, so use continue and go on to next 
+        // if intersection exists, "first" collision wins
         scan[i] = intersection_point;
+        // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
         continue;
       } else {
         // else if no collision, set scan[i] to the point at range_max
@@ -137,19 +138,29 @@ void ParticleFilter::Update(const vector<float>& ranges,
     // pass in robot's location and angle for loc and angle
     Eigen::Vector2f loc;
     float angle;
-    GetLocation(&loc, &angle);
+
+    Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
+
+    ParticleFilter::GetLocation(&loc, &angle); // TODO: doubt this is correct -sun
+    // use map-relative location actually
     // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
-    ParticleFilter::GetPredictedPointCloud(const &loc, const &angle, num_ranges, range_min, range_max, angle_min, angle_max, scan_ptr);
+    ParticleFilter::GetPredictedPointCloud((Eigen::Vector2f const) loc, angle, num_ranges, range_min, range_max, angle_min, angle_max, &scan_ptr);
 
   // TODO: STEP 2
   // compare particle observation to prediction
   // ranges holds our observation s, scan_ptr (kinda) holds our prediction s_hat
-  // loop over both of these
-    // tunable param: sd
-    // s_hat is basically (dist btwn laser and scan[i] points) - range_min
-    // but what is s
-    // anyway
-    // log_lik -= ((s_hat - s)/sd^2)^2
+  double log_lik = 0.0;
+  // tunable param: sd_squared
+  float sd_squared = 0.0025; // TODO: did the slides say to start at 0.05 std dev? unsure.
+  // robustification will be on 14 - Expecting The Unexpected slide 28
+  for (size_t i = 0; i < scan_ptr.size(); ++i) {
+    // s_hat is (dist btwn laser and scan[i] points) - range_min
+    double s_hat_dist = sqrt(pow(scan_ptr[i].x() - laser_loc.x(), 2) + pow(scan_ptr[i].y() - laser_loc.y(), 2));
+    float s_hat = s_hat_dist - range_min;
+    // s is the range, aka dist from laser to endpoint of observed
+    float s = ranges[i * 10]; // TUNABLE: every 10th laser?
+    log_lik -= pow((s_hat - s) / sd_squared, 2);
+  }
 
   // TODO: STEP 3
   // assign weight to particle
@@ -164,6 +175,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
      
      need more clarification on what this "ground truth" is and how we use it...
   */
+  p_ptr->weight = log_lik;
 }
 
 void ParticleFilter::Resample() {
@@ -211,12 +223,22 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
 
   // TODO STEP 1: figure out how to call update
   // init a num_updates variable
+  int num_updates = 0;
   // tunable param: d
-  // if we have traveled at least distance d
+  // if we have traveled at least distance d and sensor data is available
+      // use for normalization later
+      double max_likelihood = 0;
       // loop over particle vector
-        // ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max,
-        //                           Particle* p_ptr)
-        // increment num_updates
+        for (size_t i = 0; i < FLAGS_num_particles; ++i) {
+          ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max, &particles_[i]);
+          double likelihood = particles_[i].weight;
+          if(max_likelihood < likelihood) max_likelihood = likelihood;
+        }
+        // normalize all weights (see 16 - Problems with Particle Filters slide 10)
+        for (size_t i = 0; i < FLAGS_num_particles; ++i) {
+          particles_[i].weight = abs((particles_[i].weight - max_likelihood));
+        }
+        num_updates++;
 
   // TODO STEP 2: figure out how to call resample
   // tunable param: n
