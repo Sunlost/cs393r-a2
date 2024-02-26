@@ -105,8 +105,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       if (intersects) {
         // if intersection exists, "first" collision wins
         scan[i] = intersection_point;
-        // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
-        continue;
+        break;
       } else {
         // else if no collision, set scan[i] to the point at range_max
         scan[i] = rm_pt;
@@ -155,6 +154,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // robustification will be on 14 - Expecting The Unexpected slide 28
   for (size_t i = 0; i < scan_ptr.size(); ++i) {
     // s_hat is (dist btwn laser and scan[i] points) - range_min
+    // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
     double s_hat_dist = sqrt(pow(scan_ptr[i].x() - laser_loc.x(), 2) + pow(scan_ptr[i].y() - laser_loc.y(), 2));
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
