@@ -246,6 +246,10 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
     // ParticleFilter::Resample()
 }
 
+double magnitude(float x, float y) {
+  return sqrt(pow(x, 2) + pow(y, 2));
+}
+
 void ParticleFilter::Predict(const Vector2f& odom_loc,
                              const float odom_angle) {
   // Implement the predict step of the particle filter here.
@@ -257,26 +261,35 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   // You will need to use the Gaussian random number generator provided. For
   // example, to generate a random number from a Gaussian with mean 0, and
   // standard deviation 2:
-  float x = rng_.Gaussian(0.0, 2.0);
-  printf("Random number drawn from Gaussian distribution with 0 mean and "
-         "standard deviation of 2 : %f\n", x);
+  // float x = rng_.Gaussian(0.0, 2.0);
+  // printf("Random number drawn from Gaussian distribution with 0 mean and "
+  //        "standard deviation of 2 : %f\n", x);
 
-  // inside of a loop over particles
-  // TODO: STEP 1
-  // tunable params: k_1, k_2, k_3, k_4
   // calc x_hat, y_hat, and theta_hat from odom_loc and odom_angle
+  double x_hat = odom_loc.x() - prev_odom_loc_.x();
+  double y_hat = odom_loc.y() - prev_odom_loc_.y();
+  double theta_hat = odom_angle - prev_odom_angle_;
+  
+  // tunable parameters
+  float k_1 = 1.0; //   x,y stddev's   mag(x,y) weight
+  float k_2 = 1.0; //   x,y stddev's   mag(theta) weight
+  float k_3 = 1.0; // theta stddev's   mag(x,y) weight
+  float k_4 = 1.0; // theta stddev's   mag(theta) weight
 
-  // generate e_x and e_y from a distribution with a standard deviation of k_1*mag(x_hat^2 + y_hat^2) + k_2*abs(theta_hat)
-
-  // generate e_theta from a distribution with a standard deviation of k_3*mag(x_hat^2 + y_hat^2) + k_4*abs(theta_hat)
-
-  // d_x = x_hat + e_x
-  // d_y = y_hat + e_y
-  // d_theta = theta_hat + e_theta
-
-  // TODO: STEP 2
-  // model a particle some d_x, d_y, and d_theta away from old particle location
-  // push particle to particle vector
+  // e_x, e_y drawn from N(0, k1*sqrt(d_x^2 + d_y^2) + k2*||d_theta||)
+  // e_theta drawn from N(0, k3*sqrt(d_x^2 + d_y^2) + k4*||d_theta||)
+  // same distrib except for TUNABLE params k1+k2/k3+k4
+  double xy_stddev = k_1*magnitude(x_hat, y_hat) + k_2*abs(theta_hat);
+  double theta_stddev = k_3*magnitude(x_hat, y_hat) + k_4*abs(theta_hat);
+  // update particles
+  for (size_t i = 0; i < FLAGS_num_particles; ++i){
+    float e_x = rng_.Gaussian(0.0, xy_stddev);
+    float e_y = rng_.Gaussian(0.0, xy_stddev);
+    float e_theta = rng_.Gaussian(0.0, theta_stddev);
+    particles_[i].loc.x() += x_hat + e_x;
+    particles_[i].loc.y() += y_hat + e_y;
+    particles_[i].angle += theta_hat + e_theta;
+  }
 
 }
 
@@ -288,10 +301,15 @@ void ParticleFilter::Initialize(const string& map_file,
   // some distribution around the provided location and angle.
   map_.Load(map_file);
 
-  // TODO
   // initialize vector of particles with GetParticles
-  // initialize location estimate for robot
-
+  for (size_t i = 0; i < FLAGS_num_particles; ++i){
+    Particle *p = new Particle();
+    // init in Gaussian distribution around loc and angle
+    p.loc.x() = loc.x() + rng_.Gaussian(0.0, );
+    p.loc.y() = loc.y() + rng_.Gaussian(0.0, );
+    p.angle = angle + rng_.Gaussian(0.0, );
+    particles_.push_back(p);
+  }
 }
 
 void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr, 
@@ -304,9 +322,20 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   loc = Vector2f(0, 0);
   angle = 0;
 
-  // TODO
-  // this is different from mean pose -- need to figure out where that goes, maybe in predict?
-  // pick particle based on the best observation likelihood (aka its weight)
+  double x_locs = 0.0;
+  double y_locs = 0.0;
+  double sines = 0.0;
+  double cosines = 0.0;
+
+  for (size_t i = 0; i < FLAGS_num_particles; ++i){
+    x_locs += particles_[i].loc.x() * particles_[i].weight;
+    y_locs += particles_[i].loc.y() * particles_[i].weight;
+    sines += sin(angle);
+    cosines += cos(angle);
+  }
+  loc.x() = x_locs * 100 / FLAGS_num_particles;
+  loc.y() = y_locs * 100 / FLAGS_num_particles;
+  angle = atan2(sines / FLAGS_num_particles, cosines / FLAGS_num_particles);
 }
 
 
