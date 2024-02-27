@@ -183,29 +183,25 @@ void ParticleFilter::Resample() {
   //    new_particles.push_back(...)
   // After resampling:
   // particles_ = new_particles;
-
-  /*
-    ED: Either we keep some tunable absolute threshold for the weights for discarding
-    old unlikely particles 
-    OR
-    could figure out the range of of weights we have just calculated, figure out threshold and remove particles. 
-    Don't filter out too many particles, maybe start by dropping 30% of the range of weights? 
-    
-    The latter sounds more correct.
-
-    also need to clarify what they mean about "duplication", whether that is copying over an old point 
-    from the old particles to the new ones 
-    or 
-    actually duplicating the particles s.t where there was one particle present in the old set, now there would be two. 
-    
-    The former sounds like the correct way.
-  */ 
+ 
+  // Resample the particles, proportional to their weights.
+  // The current particles are in the `particles_` variable. 
+  // Create a variable to store the new particles, and when done, replace the
+  // old set of particles:
+  vector<Particle> new_particles;
 
   // You will need to use the uniform random number generator provided. For
   // example, to generate a random number between 0 and 1:
-  float x = rng_.UniformRandom(0, 1);
-  printf("Random number drawn from uniform distribution between 0 and 1: %f\n",
-         x);
+  double x = rng_.UniformRandom(0, 1);
+ 
+  // During resampling:   
+  for (Particle old_particle : particles_) {
+    x = rng_.UniformRandom(0, 1);
+    if (x <= old_particle.weight) new_particles.push_back(old_particle);
+  }
+
+  // After resampling:
+  particles_ = new_particles;
 }
 
 void ParticleFilter::ObserveLaser(const vector<float>& ranges,
@@ -237,8 +233,9 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
 
   // TODO STEP 2: figure out how to call resample
   // tunable param: n
+  int n = 10; // FIX/Move somewhere else later
   // if it has been n updates since our last resample
-    // ParticleFilter::Resample()
+  if (num_updates >= n) ParticleFilter::Resample();
 }
 
 double magnitude(float x, float y) {
