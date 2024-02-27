@@ -93,12 +93,6 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       // the range max point
       Eigen::Vector2f rm_pt(range_max * sin(alpha), range_max * cos(alpha));
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
-      // Access the end points using `.p0` and `.p1` members:
-      printf("P0: %f, %f P1: %f,%f\n", 
-            my_line.p0.x(),
-            my_line.p0.y(),
-            my_line.p1.x(),
-            my_line.p1.y());
       // check for intersection with this line and the map line
       Vector2f intersection_point; // Return variable
       bool intersects = map_line.Intersection(my_line, &intersection_point);
@@ -138,7 +132,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
     Eigen::Vector2f loc;
     float angle;
 
-    Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
+    // Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
 
     ParticleFilter::GetLocation(&loc, &angle); // TODO: doubt this is correct -sun
     // use map-relative location actually
@@ -155,7 +149,8 @@ void ParticleFilter::Update(const vector<float>& ranges,
   for (size_t i = 0; i < scan_ptr.size(); ++i) {
     // s_hat is (dist btwn laser and scan[i] points) - range_min
     // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
-    double s_hat_dist = sqrt(pow(scan_ptr[i].x() - laser_loc.x(), 2) + pow(scan_ptr[i].y() - laser_loc.y(), 2));
+    // TODO: check if I need to subtract laser_loc.x and .y from here (and also figure out how to calc that)
+    double s_hat_dist = sqrt(pow(scan_ptr[i].x(), 2) + pow(scan_ptr[i].y(), 2));
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
     float s = ranges[i * 10]; // TUNABLE: every 10th laser?
@@ -303,11 +298,11 @@ void ParticleFilter::Initialize(const string& map_file,
 
   // initialize vector of particles with GetParticles
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
-    Particle *p = new Particle();
+    Particle p = Particle();
     // init in Gaussian distribution around loc and angle
-    p.loc.x() = loc.x() + rng_.Gaussian(0.0, );
-    p.loc.y() = loc.y() + rng_.Gaussian(0.0, );
-    p.angle = angle + rng_.Gaussian(0.0, );
+    p.loc.x() = loc.x() + rng_.Gaussian(0.0, 1.0);
+    p.loc.y() = loc.y() + rng_.Gaussian(0.0, 1.0);
+    p.angle = angle + rng_.Gaussian(0.0, 1.0);
     particles_.push_back(p);
   }
 }
@@ -319,8 +314,6 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   // Compute the best estimate of the robot's location based on the current set
   // of particles. The computed values must be set to the `loc` and `angle`
   // variables to return them. Modify the following assignments:
-  loc = Vector2f(0, 0);
-  angle = 0;
 
   double x_locs = 0.0;
   double y_locs = 0.0;
@@ -336,6 +329,10 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   loc.x() = x_locs * 100 / FLAGS_num_particles;
   loc.y() = y_locs * 100 / FLAGS_num_particles;
   angle = atan2(sines / FLAGS_num_particles, cosines / FLAGS_num_particles);
+  printf("x: %f y: %f angle: %f\n", 
+        loc.x(),
+        loc.y(),
+        angle);
 }
 
 
