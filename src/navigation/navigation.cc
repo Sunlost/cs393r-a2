@@ -208,12 +208,12 @@ void Navigation::Run() {
   if (!odom_initialized_) return;
 
   curr_path = pick_arc();
-  visualization::DrawPathOption(curr_path.curvature,
-                                curr_path.free_path_length,
-                                curr_path.clearance,
-                                0x3EB489,
-                                true,
-                                local_viz_msg_);
+  // visualization::DrawPathOption(curr_path.curvature,
+  //                               curr_path.free_path_length,
+  //                               curr_path.clearance,
+  //                               0x3EB489,
+  //                               true,
+  //                               local_viz_msg_);
 
   if (debug_print) printf("\nchosen path's fpl %f\n", curr_path.free_path_length);
   if (debug_print) printf("chosen path's clearance %f\n", curr_path.clearance);
@@ -379,14 +379,14 @@ PathOption Navigation::pick_arc() {
   if (debug_print) printf("\nIn Pick Arc, feasible arcs\n");
   
   for(unsigned i = 0; i < path_options.size(); i++) {
-    visualization::DrawPathOption(path_options.at(i).curvature,
-                                  path_options.at(i).free_path_length,
-                                  path_options.at(i).clearance,
-                                  0,
-                                  false,
-                                  local_viz_msg_);
+    // visualization::DrawPathOption(path_options.at(i).curvature,
+    //                               path_options.at(i).free_path_length,
+    //                               path_options.at(i).clearance,
+    //                               0,
+    //                               false,
+    //                               local_viz_msg_);
 
-    visualization::DrawCross(path_options.at(i).closest_point, .3, 0xab0065, local_viz_msg_);
+    // visualization::DrawCross(path_options.at(i).closest_point, .3, 0xab0065, local_viz_msg_);
 
     // use robot_rel_goal and optimal_endpt
     double dtgoal = magnitude(robot_rel_goal.x() - path_options.at(i).closest_point.x(), 
