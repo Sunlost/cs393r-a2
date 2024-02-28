@@ -157,30 +157,25 @@ void ParticleFilter::Update(const vector<float>& ranges,
 }
 
 void ParticleFilter::Resample() {
-  // Resample the particles, proportional to their weights.
-  // The current particles are in the `particles_` variable. 
-  // Create a variable to store the new particles, and when done, replace the
-  // old set of particles:
-  // vector<Particle> new_particles';
-  // During resampling: 
-  //    new_particles.push_back(...)
-  // After resampling:
-  // particles_ = new_particles;
- 
-  // Resample the particles, proportional to their weights.
-  // The current particles are in the `particles_` variable. 
-  // Create a variable to store the new particles, and when done, replace the
-  // old set of particles:
   vector<Particle> new_particles;
 
-  // You will need to use the uniform random number generator provided. For
-  // example, to generate a random number between 0 and 1:
-  double x = rng_.UniformRandom(0, 1);
- 
-  // During resampling:   
-  for (Particle old_particle : particles_) {
-    x = rng_.UniformRandom(0, 1);
-    if (x <= old_particle.weight) new_particles.push_back(old_particle);
+  double step_size = 1.0 / FLAGS_num_particles;
+  double last = rng_.UniformRandom(0, step_size) - step_size;
+  int index = 0;
+  double sum = 0;
+
+  while(new_particles.size() < FLAGS_num_particles) {
+    sum += particles_[index];
+    while(last + step_size < sum) {
+      Particle p;
+      p.loc.x() = particles_[index].loc.x();
+      p.loc.y() = particles_[index].loc.y();
+      p.angle = particles_[index].angle;
+      // assuming we do not need to copy weight through...
+      new_particles.push_back(p);
+      last += step_size;
+    }
+    index++;
   }
 
   // After resampling:
