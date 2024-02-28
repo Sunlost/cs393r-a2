@@ -111,11 +111,25 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       } else {
         // else if no collision, set scan[i] to the point at range_max
         scan[i] = rm_pt;
-        printf("[GETPPC]: rm_pt x: %f rm_pt y: %f\n",
-    rm_pt.x(), rm_pt.y());
+        printf("%ld [GETPPC]: rm_pt x: %f rm_pt y: %f\n",
+    i, rm_pt.x(), rm_pt.y());
       }
     }
   }
+}
+
+float calc_variance(const vector<float>& ranges) {
+  float avg = 0;
+  for(size_t i = 0; i < ranges.size(); ++i) {
+    avg += ranges[i];
+  }
+  avg /= ranges.size();
+  float variance = 0;
+  for(size_t i = 0; i < ranges.size(); ++i) {
+    variance += (ranges[i] - avg) * (ranges[i] - avg);
+  }
+  
+  return variance /= ranges.size();
 }
 
 void ParticleFilter::Update(const vector<float>& ranges,
@@ -150,7 +164,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // compare particle observation to prediction
   double log_lik = 0.0;
   // tunable param: sd_squared
-  float sd_squared = 0.0025; // TODO: did the slides say to start at 0.05 std dev? unsure.
+  float variance = calc_variance(ranges);
   // robustification will be on 14 - Expecting The Unexpected slide 28
   for (size_t i = 0; i < scan_ptr.size(); ++i) {
     // s_hat is (dist btwn laser and scan[i] points) - range_min
@@ -160,9 +174,9 @@ void ParticleFilter::Update(const vector<float>& ranges,
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
     float s = ranges[i * 10]; // TUNABLE: every 10th laser?
-    log_lik -= log(pow((s - s_hat), 2) / sd_squared);
-     printf("[UPDATE]: s_hat: %f s: %f log_lik: %f\n",
-    s_hat, s, log_lik);
+    log_lik -= pow((s - s_hat), 2) / variance;
+     printf("%ld [UPDATE]: s_hat: %f s: %f log_lik: %f\n",
+    i, s_hat, s, log_lik);
 
   }
 
