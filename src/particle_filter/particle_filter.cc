@@ -165,7 +165,7 @@ void ParticleFilter::Resample() {
   double sum = 0;
 
   while(new_particles.size() < FLAGS_num_particles) {
-    sum += particles_[index];
+    sum += particles_[index].weight;
     while(last + step_size < sum) {
       Particle p;
       p.loc.x() = particles_[index].loc.x();
