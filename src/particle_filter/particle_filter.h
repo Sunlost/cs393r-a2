@@ -107,6 +107,10 @@ class ParticleFilter {
   int num_valid_particles;
   int num_updates_done;
   int num_updates_reqd_for_resample;
+  
+  // Used to for LIDAR, we we want to sample every ith ray.
+  // 10 was the recommended number to start with in the slides.
+  int ith_ray;
 
   bool debug_print;
 };

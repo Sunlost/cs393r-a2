@@ -63,6 +63,7 @@ ParticleFilter::ParticleFilter() :
     num_valid_particles(FLAGS_num_particles),
     num_updates_done(0),
     num_updates_reqd_for_resample(3),
+    ith_ray(10),
     debug_print(false) {}
 
 void ParticleFilter::GetParticles(vector<Particle>* particles) const {
@@ -94,7 +95,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // expected observations, to be used for the update step.
 
   //printf("Scan ptr size before %ld\n", scan.size());
-  scan.resize(num_ranges / 10);
+  scan.resize(num_ranges / ith_ray);
   //printf("Scan ptr size before %ld\n\n", scan.size());
 
   vector<int> scan_min_dists;
@@ -111,7 +112,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       const line2f map_line = map_.lines[j];
       // need to use math to calculate endpoint of the line based on range_max. treat laser location as point 0
       // 10 is a magic number rn describing the angle increment. we should tune that (and by extension num_ranges)
-      float alpha = angle_min + math_util::DegToRad(10*i);
+      float alpha = angle_min + math_util::DegToRad(ith_ray * i);
       // the range max point
       Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), range_max * cos(alpha) + laser_loc.y());
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
@@ -181,7 +182,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // predicted point cloud.
 
   // tunable param: num_ranges->aka the 10 thing.
-  int num_ranges = ranges.size() / 10;
+  int num_ranges = ranges.size() / ith_ray;
   std::vector<Eigen::Vector2f> scan_ptr(num_ranges);
   // pass in robot's location and angle for loc and angle
 
@@ -205,7 +206,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
     double s_hat_dist = sqrt(pow(scan_ptr[i].x(), 2) + pow(scan_ptr[i].y(), 2));
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
-    float s = ranges[i * 10]; // TUNABLE: every 10th laser?
+    float s = ranges[i * ith_ray]; // TUNABLE: every 10th laser?
     log_lik += pow((s - s_hat), 2) / divisor;
     // if(debug_print) printf("[UPDATE]: %ld s_hat: %f s: %f log_lik: %f\n",
     //     i, s_hat, s, log_lik);
