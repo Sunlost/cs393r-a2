@@ -260,6 +260,13 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   // Implement the motion model predict step here, to propagate the particles
   // forward based on odometry.
 
+  if (!odom_initialized_) {
+    prev_odom_loc_.x() = odom_loc.x();
+    prev_odom_loc_.y() = odom_loc.y();
+    prev_odom_angle_ = odom_angle;
+    odom_initialized_ = true;
+    return;
+  }
 
   // You will need to use the Gaussian random number generator provided. For
   // example, to generate a random number from a Gaussian with mean 0, and
@@ -294,10 +301,7 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   // same distrib except for TUNABLE params k1+k2/k3+k4
   double xy_stddev = k_1*magnitude(x_hat, y_hat) + k_2*abs(theta_hat);
   double theta_stddev = k_3*magnitude(x_hat, y_hat) + k_4*abs(theta_hat);
-  if (!odom_initialized_) {
-      xy_stddev = 0;
-      theta_stddev = 0;
-  }
+
   // update particles
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
     float e_x = rng_.Gaussian(0.0, xy_stddev);
@@ -313,7 +317,6 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     printf("[PREDICT] x hat: %f y hat: %f angle hat: %f\n", 
         x_hat, y_hat, theta_hat);
   }
-  odom_initialized_ = true;
   prev_odom_loc_ = odom_loc;
   prev_odom_angle_ = odom_angle;
 }
@@ -332,22 +335,7 @@ void ParticleFilter::Initialize(const string& map_file,
   vector<Particle> new_particles;
 
   printf("INITIALIZING!\n");
-
-  // ? differences are still big so let's presume that ... well hold on let's see xhat first
-  prev_odom_loc_.x() = loc.x();
-  prev_odom_loc_.y() = loc.y();
-  prev_odom_angle_ = angle;
-
-  // problem is not in initialize bc these seem fine.
-  // printf("xxxxx: %f yyyyyy: %f aaaaangle: %f\n", 
-  //       loc.x(),
-  //       loc.y(),
-  //       angle);
-
-  printf("[INITIALIZATION] prevx: %f prevy: %f prevangle: %f\n", 
-          prev_odom_loc_.x(),
-          prev_odom_loc_.y(),
-          prev_odom_angle_);
+  printf("INITIALIZE DATA: x: %f, y: %f, angle: %f\n", loc.x(), loc.y(), angle);
 
   odom_initialized_ = false;
   // initialize vector of particles with GetParticles
