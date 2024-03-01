@@ -90,7 +90,9 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // This is NOT the motion model predict step: it is the prediction of the
   // expected observations, to be used for the update step.
 
-  scan.resize(num_ranges);
+  // printf("Scan ptr size before %ld\n", scan.size());
+  scan.resize(num_ranges / 10);
+  // printf("Scan ptr size before %ld\n\n", scan.size());
 
   vector<int> scan_min_dists;
   float max_dist = pow(range_max, 2) + 1;
@@ -186,7 +188,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // GetPredictedPointCloud((Eigen::Vector2f const) loc, angle, num_ranges, range_min, range_max, angle_min, angle_max, &scan_ptr);
   if(debug_print) printf("[UPDATE]: p_loc x: %f, p_loc y: %f, p_loc angle: %f\n", 
       p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
-  GetPredictedPointCloud(p_ptr->loc, p_ptr->angle, num_ranges, range_min, range_max, angle_min, angle_max, &scan_ptr);
+  GetPredictedPointCloud(p_ptr->loc, p_ptr->angle, ranges.size(), range_min, range_max, angle_min, angle_max, &scan_ptr);
   // compare particle observation to prediction
   double log_lik = 0.0;
   // tunable param: sd_squared
