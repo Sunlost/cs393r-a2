@@ -59,7 +59,7 @@ ParticleFilter::ParticleFilter() :
     prev_odom_loc_(0, 0),
     prev_odom_angle_(0),
     odom_initialized_(false),
-    sum_weight(0),
+    sum_weight(FLAGS_num_particles),
     num_valid_particles(FLAGS_num_particles),
     num_updates_done(0),
     num_updates_reqd_for_resample(3),
@@ -87,6 +87,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
 
   std::vector<Eigen::Vector2f>& scan = *scan_ptr;
   Eigen::Vector2f laser_loc(loc.x() +  0.2, loc.y());
+  printf("[GPPC]: laser_loc.x() = %f, laser_loc.y() = %f\n",laser_loc.x(), laser_loc.y());
   // Eigen::Vector2f laser_loc(loc.x(), loc.y());
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
@@ -103,16 +104,19 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   for(int i = 0; i < num_ranges; i++) {
     scan_min_dists.push_back(max_dist);
   }
+ 
+  double degtoradresult = math_util::DegToRad(2.5);
 
   // iterate through scan to set points for each ray
   for (size_t j = 0; j < map_.lines.size(); ++j) {
     // iterate through map to check for collisions
+    float alpha = angle + angle_min - degtoradresult;
     for (size_t i = 0; i < scan.size(); ++i) {
       // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
       const line2f map_line = map_.lines[j];
       // need to use math to calculate endpoint of the line based on range_max. treat laser location as point 0
       // 10 is a magic number rn describing the angle increment. we should tune that (and by extension num_ranges)
-      float alpha = angle_min + math_util::DegToRad(ith_ray * i);
+      alpha += degtoradresult;
       // the range max point
       Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), range_max * cos(alpha) + laser_loc.y());
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
@@ -124,6 +128,8 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       
       Vector2f intersection_point; // Return variable
       bool intersects = map_line.Intersection(my_line, &intersection_point);
+      // printf("%ld [GPPC]: rmpt x: %f, rmpt y: %f alpha: %f\n", 
+      // i, rm_pt.x(), rm_pt.y(), alpha);
       
       if (intersects) {
         // if intersection exists, "first" collision wins
@@ -132,7 +138,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
           scan_min_dists[i] = curr_dist;
           scan[i] = intersection_point;
         }
-        // if(debug_print) printf("[GETPPC]: intersection_point x: %f intersection_point y: %f\n",
+        // printf("[GETPPC]: intersection_point x: %f intersection_point y: %f\n",
         //     intersection_point.x(), intersection_point.y());
       } else {
         if(scan[i].x() == 0 && scan[i].y() == 0) scan[i] = rm_pt;
@@ -190,7 +196,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
   // use GetPredictedPointCloud to predict expected observations for particle conditioned on the map
   // GetPredictedPointCloud((Eigen::Vector2f const) loc, angle, num_ranges, range_min, range_max, angle_min, angle_max, &scan_ptr);
-  if(debug_print) printf("[UPDATE]: p_loc x: %f, p_loc y: %f, p_loc angle: %f\n", 
+  printf("[UPDATE]: p_loc x: %f, p_loc y: %f, p_loc angle: %f\n", 
       p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
   GetPredictedPointCloud(p_ptr->loc, p_ptr->angle, ranges.size(), range_min, range_max, angle_min, angle_max, &scan_ptr);
   // compare particle observation to prediction
@@ -203,7 +209,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
     // s_hat is (dist btwn laser and scan[i] points) - range_min
     // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
     // TODO: check if I need to subtract laser_loc.x and .y from here (and also figure out how to calc that)
-    double s_hat_dist = sqrt(pow(scan_ptr[i].x(), 2) + pow(scan_ptr[i].y(), 2));
+    double s_hat_dist = sqrt(pow(scan_ptr[i].x() - p_ptr->loc.x(), 2) + pow(scan_ptr[i].y() - p_ptr->loc.y(), 2));
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
     float s = ranges[i * ith_ray]; // TUNABLE: every 10th laser?
@@ -213,6 +219,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   }
   // assign weight to particle, times gamma
   p_ptr->weight = log_lik * 2 / num_ranges * -1;
+  
 }
 
 
@@ -269,7 +276,7 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
                                   float angle_max) {
   // A new laser scan observation is available (in the laser frame)
   // Call the Update and Resample steps as necessary.
-  if(debug_print) printf("[OBSERVELASER INVOKED]\n");
+  printf("[OBSERVELASER INVOKED]\n");
   // TODO STEP 1: figure out how to call update
   // tunable param: d
   // if we have traveled at least distance d and sensor data is available
@@ -287,6 +294,7 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
   }
   // normalize all weights (see 16 - Problems with Particle Filters slide 10)
   for (size_t i = 0; i < FLAGS_num_particles; ++i) {
+    printf("[OBSERVELASER]: max_like: %f weight: %f reset weight: %f\n", max_likelihood, particles_[i].weight, (particles_[i].weight - max_likelihood));
     if(particles_[i].weight == 0) continue;
     particles_[i].weight = abs((particles_[i].weight - max_likelihood));
     sum_weight += particles_[i].weight;
@@ -440,7 +448,6 @@ void ParticleFilter::Initialize(const string& map_file,
   odom_initialized_ = false;
   num_updates_done = 0;
   double new_weights = 1 / FLAGS_num_particles;
-  sum_weight = FLAGS_num_particles;
   // initialize vector of particles with GetParticles
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
     Particle p = Particle();
@@ -449,7 +456,7 @@ void ParticleFilter::Initialize(const string& map_file,
     p.loc.y() = loc.y() + rng_.Gaussian(0.0, 0.001);
     p.angle = angle + rng_.Gaussian(0.0, 0.02);
     p.weight = new_weights;
-    // sum_weight += p.weight;
+    sum_weight += p.weight;
     new_particles.push_back(p);
   }
 

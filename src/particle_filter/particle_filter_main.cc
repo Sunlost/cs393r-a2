@@ -110,11 +110,11 @@ void PublishParticles() {
 }
 
 void PublishPredictedScan() {
-  const uint32_t kColor = 0xd67d00;
+  const uint32_t kColor = 0x007dd6;
   Vector2f robot_loc(0, 0);
   float robot_angle(0);
   particle_filter_.GetLocation(&robot_loc, &robot_angle);
-  printf("publishpredscan: robot x: %f, robot y: %f, robot angle: %f\n", robot_loc.x(), robot_loc.y(), robot_angle);
+  // printf("publishpredscan: robot x: %f, robot y: %f, robot angle: %f\n", robot_loc.x(), robot_loc.y(), robot_angle);
   vector<Vector2f> predicted_scan;
   particle_filter_.GetPredictedPointCloud(
       robot_loc,
