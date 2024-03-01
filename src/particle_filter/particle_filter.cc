@@ -55,7 +55,8 @@ config_reader::ConfigReader config_reader_({"config/particle_filter.lua"});
 ParticleFilter::ParticleFilter() :
     prev_odom_loc_(0, 0),
     prev_odom_angle_(0),
-    odom_initialized_(false) {}
+    odom_initialized_(false),
+    sum_weight(0) {}
 
 void ParticleFilter::GetParticles(vector<Particle>* particles) const {
   *particles = particles_;
@@ -224,18 +225,22 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
   // tunable param: d
   // if we have traveled at least distance d and sensor data is available
       // use for normalization later
-      double max_likelihood = 0;
-      // loop over particle vector
-        for (size_t i = 0; i < FLAGS_num_particles; ++i) {
-          ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max, &(particles_[i]));
-          double likelihood = particles_[i].weight;
-          if(max_likelihood < likelihood) max_likelihood = likelihood;
-        }
-        // normalize all weights (see 16 - Problems with Particle Filters slide 10)
-        for (size_t i = 0; i < FLAGS_num_particles; ++i) {
-          particles_[i].weight = abs((particles_[i].weight - max_likelihood));
-        }
-        num_updates++;
+  
+  sum_weight = 0;
+
+  double max_likelihood = 0;
+  // loop over particle vector
+  for (size_t i = 0; i < FLAGS_num_particles; ++i) {
+    ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max, &(particles_[i]));
+    double likelihood = particles_[i].weight;
+    if(max_likelihood < likelihood) max_likelihood = likelihood;
+  }
+  // normalize all weights (see 16 - Problems with Particle Filters slide 10)
+  for (size_t i = 0; i < FLAGS_num_particles; ++i) {
+    particles_[i].weight = abs((particles_[i].weight - max_likelihood));
+    sum_weight += particles_[i].weight;
+  }
+  num_updates++;
 
   // TODO STEP 2: figure out how to call resample
   // tunable param: n
@@ -373,10 +378,10 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   // printf("[GETLOCATION] xlocs: %f ylocs: %f sines: %f\n", 
       // x_locs, y_locs, sines);
   // I have temporarily removed the *100 bc the numbers look normal but what do I know
-  loc.x() = x_locs;
-  loc.y() = y_locs;
+  loc.x() = x_locs / sum_weight;
+  loc.y() = y_locs / sum_weight;
   angle = atan2(sines / FLAGS_num_particles, cosines / FLAGS_num_particles);
-  printf("[GETLOCATION] x: %f getlocy: %f getlocangle: %f\n", 
+  printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n", 
       loc.x(), loc.y(), angle);
 }
 
