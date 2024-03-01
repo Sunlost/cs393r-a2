@@ -268,6 +268,8 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   // printf("Random number drawn from Gaussian distribution with 0 mean and "
   //        "standard deviation of 2 : %f\n", x);
 
+  printf("[PREDICT] GIVEN LOC // x: %f, y: %f, angle: %f\n", odom_loc.x(), odom_loc.y(), odom_angle);
+
   // calc x_hat, y_hat, and theta_hat from odom_loc and odom_angle
   double x_hat = odom_loc.x() - prev_odom_loc_.x();
   double y_hat = odom_loc.y() - prev_odom_loc_.y();
@@ -322,6 +324,9 @@ void ParticleFilter::Initialize(const string& map_file,
   // The "set_pose" button on the GUI was clicked, or an initialization message
   // was received from the log. Initialize the particles accordingly, e.g. with
   // some distribution around the provided location and angle.
+
+  printf("INITIALIZED!\n");
+
   map_.Load(map_file);
   
   vector<Particle> new_particles;
@@ -339,10 +344,10 @@ void ParticleFilter::Initialize(const string& map_file,
   //       loc.y(),
   //       angle);
 
-  // printf("prevx: %f prevy: %f prevangle: %f\n", 
-  //         prev_odom_loc_.x(),
-  //         prev_odom_loc_.y(),
-  //         prev_odom_angle_);
+  printf("[INITIALIZATION] prevx: %f prevy: %f prevangle: %f\n", 
+          prev_odom_loc_.x(),
+          prev_odom_loc_.y(),
+          prev_odom_angle_);
 
   odom_initialized_ = false;
   // initialize vector of particles with GetParticles
