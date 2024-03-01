@@ -59,6 +59,7 @@ ParticleFilter::ParticleFilter() :
     sum_weight(0),
     num_valid_particles(FLAGS_num_particles),
     num_updates_done(0),
+    num_updates_reqd_for_resample(3),
     debug_print(false) {}
 
 void ParticleFilter::GetParticles(vector<Particle>* particles) const {
@@ -83,9 +84,15 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // expected observations, to be used for the update step.
 
   scan.resize(num_ranges);
+
+  vector<int> scan_min_dists;
+  float max_dist = pow(range_max, 2) + 1;
+  for(int i = 0; i < num_ranges; i++) {
+    scan_min_dists.push_back(max_dist);
+  }
+
   // iterate through scan to set points for each ray
   for (size_t j = 0; j < map_.lines.size(); ++j) {
-    float min_dist = pow(range_max + 1, 2);
     // iterate through map to check for collisions
     for (size_t i = 0; i < scan.size(); ++i) {
       // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
@@ -94,7 +101,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       // 10 is a magic number rn describing the angle increment. we should tune that (and by extension num_ranges)
       float alpha = angle_min + 0.17*i;
       // the range max point
-      Eigen::Vector2f rm_pt(range_max * sin(alpha), range_max * cos(alpha));
+      Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), range_max * cos(alpha) + laser_loc.y());
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
       // if(debug_print) printf("\n[GETPPC]: rmminusparticle x: %f rmminusparticle y: %f\n",
       //     rm_pt.x() - loc.x(), rm_pt.y() - loc.y());
@@ -108,17 +115,14 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       if (intersects) {
         // if intersection exists, "first" collision wins
         float curr_dist = pow(intersection_point.x() - laser_loc.x(), 2) + pow(intersection_point.y() - laser_loc.y(), 2);
-        if (curr_dist < min_dist) {
-          min_dist = curr_dist;
+        if (curr_dist < scan_min_dists[i]) {
+          scan_min_dists[i] = curr_dist;
           scan[i] = intersection_point;
         }
         // if(debug_print) printf("[GETPPC]: intersection_point x: %f intersection_point y: %f\n",
         //     intersection_point.x(), intersection_point.y());
       } else {
-        // else if no collision, set scan[i] to the point at range_max
-        scan[i] = rm_pt;
-        // if(debug_print) printf("%ld [GETPPC]: rm_pt x: %f rm_pt y: %f\n",
-        //     i, rm_pt.x(), rm_pt.y());
+        if(scan[i].x() == 0 && scan[i].y() == 0) scan[i] = rm_pt;
       }
     }
   }
@@ -219,6 +223,7 @@ void ParticleFilter::Resample() {
   // After resampling:
   particles_ = new_particles;
   num_valid_particles = FLAGS_num_particles;
+  num_updates_done = 0;
 }
 
 void ParticleFilter::ObserveLaser(const vector<float>& ranges,
@@ -252,11 +257,8 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
   }
   num_updates_done++;
 
-  // TODO STEP 2: figure out how to call resample
-  // tunable param: n
-  int n = 10; // FIX/Move somewhere else later
   // if it has been n updates since our last resample
-  if (num_updates_done >= n) ParticleFilter::Resample();
+  if (num_updates_done >= num_updates_reqd_for_resample) ParticleFilter::Resample();
 }
 
 double magnitude(float x, float y) {
@@ -307,10 +309,10 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
       // prev_odom_loc_.x(), prev_odom_loc_.y(), prev_odom_angle_);
   
   // tunable parameters
-  float k_1 = 0.01; //   x,y stddev's   mag(x,y) weight
+  float k_1 = 0.001; //   x,y stddev's   mag(x,y) weight
   float k_2 = 0.001; //   x,y stddev's   mag(theta) weight
   float k_3 = 0.001; // theta stddev's   mag(x,y) weight
-  float k_4 = 0.01; // theta stddev's   mag(theta) weight
+  float k_4 = 0.001; // theta stddev's   mag(theta) weight
 
   // e_x, e_y drawn from N(0, k1*sqrt(d_x^2 + d_y^2) + k2*||d_theta||)
   // e_theta drawn from N(0, k3*sqrt(d_x^2 + d_y^2) + k4*||d_theta||)
