@@ -44,6 +44,9 @@ using std::swap;
 using std::vector;
 using Eigen::Vector2f;
 using Eigen::Vector2i;
+using math_util::DegToRad;
+using math_util::RadToDeg;
+
 using vector_map::VectorMap;
 
 DEFINE_double(num_particles, 80, "Number of particles");
@@ -90,9 +93,9 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // This is NOT the motion model predict step: it is the prediction of the
   // expected observations, to be used for the update step.
 
-  // printf("Scan ptr size before %ld\n", scan.size());
+  //printf("Scan ptr size before %ld\n", scan.size());
   scan.resize(num_ranges / 10);
-  // printf("Scan ptr size before %ld\n\n", scan.size());
+  //printf("Scan ptr size before %ld\n\n", scan.size());
 
   vector<int> scan_min_dists;
   float max_dist = pow(range_max, 2) + 1;
@@ -108,7 +111,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       const line2f map_line = map_.lines[j];
       // need to use math to calculate endpoint of the line based on range_max. treat laser location as point 0
       // 10 is a magic number rn describing the angle increment. we should tune that (and by extension num_ranges)
-      float alpha = angle_min + 0.17*i;
+      float alpha = angle_min + math_util::DegToRad(10*i);
       // the range max point
       Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), range_max * cos(alpha) + laser_loc.y());
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
