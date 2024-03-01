@@ -104,6 +104,11 @@ class ParticleFilter {
   bool odom_initialized_;
 
   double sum_weight;
+  int num_valid_particles;
+  int num_updates_done;
+  int num_updates_reqd_for_resample;
+
+  bool debug_print;
 };
 }  // namespace slam
 
