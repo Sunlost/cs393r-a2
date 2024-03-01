@@ -66,6 +66,12 @@ void ParticleFilter::GetParticles(vector<Particle>* particles) const {
   *particles = particles_;
 }
 
+
+
+
+
+
+
 void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
                                             const float angle,
                                             int num_ranges,
@@ -77,6 +83,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
 
   std::vector<Eigen::Vector2f>& scan = *scan_ptr;
   Eigen::Vector2f laser_loc(loc.x() +  0.2, loc.y());
+  // Eigen::Vector2f laser_loc(loc.x(), loc.y());
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
   // parameters.
@@ -128,6 +135,13 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   }
 }
 
+
+
+
+
+
+
+
 float calc_variance(const vector<float>& ranges) {
   float avg = 0;
   for(size_t i = 0; i < ranges.size(); ++i) {
@@ -141,6 +155,12 @@ float calc_variance(const vector<float>& ranges) {
   
   return variance /= ranges.size();
 }
+
+
+
+
+
+
 
 void ParticleFilter::Update(const vector<float>& ranges,
                             float range_min,
@@ -159,12 +179,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
   int num_ranges = ranges.size() / 10;
   std::vector<Eigen::Vector2f> scan_ptr(num_ranges);
   // pass in robot's location and angle for loc and angle
-  // Eigen::Vector2f loc;
-  // float angle;
 
-  // Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
-
-  // GetLocation(&loc, &angle); // TODO: doubt this is correct -sun
   // use map-relative location actually
   // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
   // use GetPredictedPointCloud to predict expected observations for particle conditioned on the map
@@ -175,7 +190,8 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // compare particle observation to prediction
   double log_lik = 0.0;
   // tunable param: sd_squared
-  float variance = calc_variance(ranges);
+  // divisor == (laser std dev^2 == 0.01)
+  float divisor = 0.01;
   // robustification will be on 14 - Expecting The Unexpected slide 28
   for (size_t i = 0; i < scan_ptr.size(); ++i) {
     // s_hat is (dist btwn laser and scan[i] points) - range_min
@@ -185,19 +201,26 @@ void ParticleFilter::Update(const vector<float>& ranges,
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
     float s = ranges[i * 10]; // TUNABLE: every 10th laser?
-    log_lik -= pow((s - s_hat), 2) / variance;
+    log_lik += pow((s - s_hat), 2) / divisor;
     // if(debug_print) printf("[UPDATE]: %ld s_hat: %f s: %f log_lik: %f\n",
     //     i, s_hat, s, log_lik);
   }
-  // assign weight to particle
-  p_ptr->weight = log_lik;
+  // assign weight to particle, times gamma
+  p_ptr->weight = log_lik * 2 / num_ranges * -1;
 }
+
+
+
+
+
+
 
 void ParticleFilter::Resample() {
   if(debug_print) printf("[RESAMPLE]\n");
   vector<Particle> new_particles;
 
   double step_size = sum_weight / FLAGS_num_particles;
+  double new_weight = 1 / FLAGS_num_particles;
   double last = rng_.UniformRandom(0, step_size) - step_size;
   int index = 0;
   double sum = 0;
@@ -213,7 +236,7 @@ void ParticleFilter::Resample() {
       p.loc.x() = particles_[index].loc.x();
       p.loc.y() = particles_[index].loc.y();
       p.angle = particles_[index].angle;
-      p.weight = particles_[index].weight;
+      p.weight = new_weight;
       new_particles.push_back(p);
       last += step_size;
     }
@@ -225,6 +248,13 @@ void ParticleFilter::Resample() {
   num_valid_particles = FLAGS_num_particles;
   num_updates_done = 0;
 }
+
+
+
+
+
+
+
 
 void ParticleFilter::ObserveLaser(const vector<float>& ranges,
                                   float range_min,
@@ -261,9 +291,22 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
   if (num_updates_done >= num_updates_reqd_for_resample) ParticleFilter::Resample();
 }
 
+
+
+
+
+
+
+
 double magnitude(float x, float y) {
   return sqrt(pow(x, 2) + pow(y, 2));
 }
+
+
+
+
+
+
 
 void ParticleFilter::Predict(const Vector2f& odom_loc,
                              const float odom_angle) {
@@ -310,9 +353,9 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   
   // tunable parameters
   float k_1 = 0.001; //   x,y stddev's   mag(x,y) weight
-  float k_2 = 0.001; //   x,y stddev's   mag(theta) weight
+  float k_2 = 0.01; //   x,y stddev's   mag(theta) weight
   float k_3 = 0.001; // theta stddev's   mag(x,y) weight
-  float k_4 = 0.001; // theta stddev's   mag(theta) weight
+  float k_4 = 0.00001; // theta stddev's   mag(theta) weight
 
   // e_x, e_y drawn from N(0, k1*sqrt(d_x^2 + d_y^2) + k2*||d_theta||)
   // e_theta drawn from N(0, k3*sqrt(d_x^2 + d_y^2) + k4*||d_theta||)
@@ -332,14 +375,14 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     float e_y = rng_.Gaussian(0.0, xy_stddev);
     float e_theta = rng_.Gaussian(0.0, theta_stddev);
 
-    if(i == 0) {
-      // have one noiseless particle to preserve the dataset in the event we pass through a narrow gap.
-      // this one noiseless particle will successfully navigate the gap and will repopulate 
-      // the particles via resample
-      e_x = 0;
-      e_y = 0;
-      e_theta = 0;
-    }
+    // if(i == 0) {
+    //   // have one noiseless particle to preserve the dataset in the event we pass through a narrow gap.
+    //   // this one noiseless particle will successfully navigate the gap and will repopulate 
+    //   // the particles via resample
+    //   e_x = 0;
+    //   e_y = 0;
+    //   e_theta = 0;
+    // }
 
     particles_[i].loc.x() = T_map.x() + e_x;
     particles_[i].loc.y() = T_map.y() + e_y;
@@ -367,6 +410,12 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
   prev_odom_angle_ = odom_angle;
 }
 
+
+
+
+
+
+
 void ParticleFilter::Initialize(const string& map_file,
                                 const Vector2f& loc,
                                 const float angle) {
@@ -381,23 +430,31 @@ void ParticleFilter::Initialize(const string& map_file,
   vector<Particle> new_particles;
 
   if(debug_print) printf("INITIALIZE DATA: x: %f, y: %f, angle: %f\n", loc.x(), loc.y(), angle);
-  sum_weight = 0;
   num_valid_particles = FLAGS_num_particles;
   odom_initialized_ = false;
+  num_updates_done = 0;
+  double new_weights = 1 / FLAGS_num_particles;
+  sum_weight = FLAGS_num_particles;
   // initialize vector of particles with GetParticles
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
     Particle p = Particle();
     // init in Gaussian distribution around loc and angle
-    p.loc.x() = loc.x() + rng_.Gaussian(0.0, 0.1);
-    p.loc.y() = loc.y() + rng_.Gaussian(0.0, 0.1);
-    p.angle = angle + rng_.Gaussian(0.0, 0.2);
-    p.weight = 1.0;
-    sum_weight += p.weight;
+    p.loc.x() = loc.x() + rng_.Gaussian(0.0, 0.001);
+    p.loc.y() = loc.y() + rng_.Gaussian(0.0, 0.001);
+    p.angle = angle + rng_.Gaussian(0.0, 0.02);
+    p.weight = new_weights;
+    // sum_weight += p.weight;
     new_particles.push_back(p);
   }
 
   particles_ = new_particles;
 }
+
+
+
+
+
+
 
 void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr, 
                                  float* angle_ptr) const {
