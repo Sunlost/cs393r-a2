@@ -73,7 +73,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // TODO: figure out what frame of reference to use lawl
   // right now I'm using car's
   std::vector<Eigen::Vector2f>& scan = *scan_ptr;
-  Eigen::Vector2f laser_loc(loc.x() + 0, loc.y() + 0.2);
+  Eigen::Vector2f laser_loc(loc.x() +  0.2, loc.y());
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
   // parameters.
