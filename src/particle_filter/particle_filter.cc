@@ -94,10 +94,10 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       // the range max point
       Eigen::Vector2f rm_pt(range_max * sin(alpha), range_max * cos(alpha));
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
-      printf("\n[GETPPC]: rmminusparticle x: %f rmminusparticle y: %f\n",
-          rm_pt.x() - loc.x(), rm_pt.y() - loc.y());
-      printf("[GETPPC]: particleloc x: %f particleloc y: %f\n",
-          loc.x(), loc.y());
+      // printf("\n[GETPPC]: rmminusparticle x: %f rmminusparticle y: %f\n",
+      //     rm_pt.x() - loc.x(), rm_pt.y() - loc.y());
+      // printf("[GETPPC]: particleloc x: %f particleloc y: %f\n",
+      //     loc.x(), loc.y());
       // check for intersection with this line and the map line
       
       Vector2f intersection_point; // Return variable
@@ -106,14 +106,14 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       if (intersects) {
         // if intersection exists, "first" collision wins
         scan[i] = intersection_point;
-        printf("[GETPPC]: intersection_point x: %f intersection_point y: %f\n",
-            intersection_point.x(), intersection_point.y());
+        // printf("[GETPPC]: intersection_point x: %f intersection_point y: %f\n",
+        //     intersection_point.x(), intersection_point.y());
         break;
       } else {
         // else if no collision, set scan[i] to the point at range_max
         scan[i] = rm_pt;
-        printf("%ld [GETPPC]: rm_pt x: %f rm_pt y: %f\n",
-            i, rm_pt.x(), rm_pt.y());
+        // printf("%ld [GETPPC]: rm_pt x: %f rm_pt y: %f\n",
+        //     i, rm_pt.x(), rm_pt.y());
       }
     }
   }
@@ -324,6 +324,10 @@ void ParticleFilter::Initialize(const string& map_file,
   // some distribution around the provided location and angle.
   map_.Load(map_file);
   
+  vector<Particle> new_particles;
+
+  printf("INITIALIZING!\n");
+
   // ? differences are still big so let's presume that ... well hold on let's see xhat first
   prev_odom_loc_.x() = loc.x();
   prev_odom_loc_.y() = loc.y();
@@ -349,8 +353,11 @@ void ParticleFilter::Initialize(const string& map_file,
     p.loc.y() = loc.y() + rng_.Gaussian(0.0, 1.0);
     p.angle = angle + rng_.Gaussian(0.0, 1.0);
     p.weight = abs(rng_.Gaussian(0.0, 1.0));
-    particles_.push_back(p);
+    sum_weight += p.weight;
+    new_particles.push_back(p);
   }
+
+  particles_ = new_particles;
 }
 
 void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr, 
@@ -367,17 +374,15 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   double cosines = 0.0;
 
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
-    // printf("[GETLOCATION] xwhy: %f ywhy: %f anglewhy: %f\n", 
-        // particles_[i].loc.x(), particles_[i].loc.y(), particles_[i].angle);
-    
+    printf("[GETLOCATION] xwhy: %f  ywhy: %f  anglewhy: %f  weight: %f\n", 
+        particles_[i].loc.x(), particles_[i].loc.y(), particles_[i].angle, particles_[i].weight);
     x_locs += particles_[i].loc.x() * particles_[i].weight;
     y_locs += particles_[i].loc.y() * particles_[i].weight;
     sines += sin(particles_[i].angle);
     cosines += cos(particles_[i].angle);
   }
-  // printf("[GETLOCATION] xlocs: %f ylocs: %f sines: %f\n", 
-      // x_locs, y_locs, sines);
-  // I have temporarily removed the *100 bc the numbers look normal but what do I know
+  printf("[GETLOCATION] x sum: %f  y sum: %f  sines: %f  cosines: %f  sum_weight: %f\n", 
+      x_locs, y_locs, sines, cosines, sum_weight);
   loc.x() = x_locs / sum_weight;
   loc.y() = y_locs / sum_weight;
   angle = atan2(sines / FLAGS_num_particles, cosines / FLAGS_num_particles);
