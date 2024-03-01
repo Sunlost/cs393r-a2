@@ -33,6 +33,9 @@
 
 namespace particle_filter {
 
+// constants
+const float laser_ang_deg_res = .25;
+
 struct Particle {
   Eigen::Vector2f loc;
   float angle;
@@ -111,6 +114,10 @@ class ParticleFilter {
   // Used to for LIDAR, we we want to sample every ith ray.
   // 10 was the recommended number to start with in the slides.
   int ith_ray;
+  // This will be set using our .25 degree scan resolution to calculate
+  // what number of degrees need to "skipped" to accomodate how many rays
+  // we want to sample by.
+  float deg_offset;
 
   bool debug_print;
 };

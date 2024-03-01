@@ -64,6 +64,7 @@ ParticleFilter::ParticleFilter() :
     num_updates_done(0),
     num_updates_reqd_for_resample(3),
     ith_ray(10),
+    deg_offset(ith_ray * laser_ang_deg_res),
     debug_print(false) {}
 
 void ParticleFilter::GetParticles(vector<Particle>* particles) const {
@@ -105,7 +106,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
     scan_min_dists.push_back(max_dist);
   }
  
-  double degtoradresult = math_util::DegToRad(2.5);
+  double degtoradresult = math_util::DegToRad(deg_offset);
 
   // iterate through scan to set points for each ray
   for (size_t j = 0; j < map_.lines.size(); ++j) {
