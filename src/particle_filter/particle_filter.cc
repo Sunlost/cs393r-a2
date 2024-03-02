@@ -107,7 +107,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   // iterate through scan to set points for each ray
   for (size_t j = 0; j < map_.lines.size(); ++j) {
     // iterate through map to check for collisions
-    float alpha = angle + angle_min - degtoradresult + 1.57;
+    float alpha = angle + angle_min - degtoradresult;
     Eigen::Vector2f rm_pt(0, 0);
     for (size_t i = 0; i < scan.size(); ++i) {
       // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
@@ -117,8 +117,8 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       alpha += degtoradresult;
       // the range max point
       // Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), );
-      rm_pt.x() = range_max * sin(alpha) + laser_loc.x();
-      rm_pt.y() = range_max * cos(alpha) + laser_loc.y();
+      rm_pt.x() = range_max * cos(alpha) + laser_loc.x();
+      rm_pt.y() = range_max * sin(alpha) + laser_loc.y();
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
 
       // check for intersection with this line and the map line
