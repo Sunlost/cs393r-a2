@@ -103,12 +103,11 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   vector<float> scan_min_dists;
   for(int i = 0; i < num_ranges / ith_ray; i++) scan_min_dists.push_back(std::numeric_limits<float>::max());
  
-  double degtoradresult = math_util::DegToRad(deg_offset);
-
+  float degtoradresult = math_util::DegToRad(deg_offset);
   // iterate through scan to set points for each ray
   for (size_t j = 0; j < map_.lines.size(); ++j) {
     // iterate through map to check for collisions
-    float alpha = angle + angle_min - degtoradresult;
+    float alpha = angle + angle_min - degtoradresult + 1.57;
     Eigen::Vector2f rm_pt(0, 0);
     for (size_t i = 0; i < scan.size(); ++i) {
       // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
@@ -501,13 +500,13 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
     sines += sin(particles_[i].angle) / num_valid_particles;
     cosines += cos(particles_[i].angle) / num_valid_particles;
   }
-  printf("[GETLOCATION] x sum: %f  y sum: %f  sines: %f  cosines: %f  sum_weight: %f\n", 
-      x_locs, y_locs, sines, cosines, sum_weight);
+  // printf("[GETLOCATION] x sum: %f  y sum: %f  sines: %f  cosines: %f  sum_weight: %f\n", 
+  //     x_locs, y_locs, sines, cosines, sum_weight);
   loc.x() = x_locs / num_valid_particles;
   loc.y() = y_locs / num_valid_particles;
   angle = atan2(sines, cosines);
-  printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n", 
-      loc.x(), loc.y(), angle);
+  // printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n", 
+  //     loc.x(), loc.y(), angle);
 }
 
 
