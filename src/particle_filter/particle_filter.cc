@@ -88,7 +88,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
 
   std::vector<Eigen::Vector2f>& scan = *scan_ptr;
   Eigen::Vector2f laser_loc(loc.x() +  0.2, loc.y());
-  printf("[GPPC]: laser_loc.x() = %f, laser_loc.y() = %f\n",laser_loc.x(), laser_loc.y());
+  // printf("[GPPC]: laser_loc.x() = %f, laser_loc.y() = %f\n",laser_loc.x(), laser_loc.y());
   // Eigen::Vector2f laser_loc(loc.x(), loc.y());
   // Compute what the predicted point cloud would be, if the car was at the pose
   // loc, angle, with the sensor characteristics defined by the provided
@@ -100,11 +100,8 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   scan.resize(num_ranges / ith_ray);
   //printf("Scan ptr size before %ld\n\n", scan.size());
 
-  vector<int> scan_min_dists;
-  float max_dist = pow(range_max, 2) + 1;
-  for(int i = 0; i < num_ranges; i++) {
-    scan_min_dists.push_back(max_dist);
-  }
+  vector<float> scan_min_dists;
+  for(int i = 0; i < num_ranges / ith_ray; i++) scan_min_dists.push_back(std::numeric_limits<float>::max());
  
   double degtoradresult = math_util::DegToRad(deg_offset);
 
@@ -112,6 +109,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
   for (size_t j = 0; j < map_.lines.size(); ++j) {
     // iterate through map to check for collisions
     float alpha = angle + angle_min - degtoradresult;
+    Eigen::Vector2f rm_pt(0, 0);
     for (size_t i = 0; i < scan.size(); ++i) {
       // to check for collisions, construct a line2f from range_min to range_max, in the direction of the ray, centered around laser pose
       const line2f map_line = map_.lines[j];
@@ -119,18 +117,14 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
       // 10 is a magic number rn describing the angle increment. we should tune that (and by extension num_ranges)
       alpha += degtoradresult;
       // the range max point
-      Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), range_max * cos(alpha) + laser_loc.y());
+      // Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), );
+      rm_pt.x() = range_max * sin(alpha) + laser_loc.x();
+      rm_pt.y() = range_max * cos(alpha) + laser_loc.y();
       line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
-      // if(debug_print) printf("\n[GETPPC]: rmminusparticle x: %f rmminusparticle y: %f\n",
-      //     rm_pt.x() - loc.x(), rm_pt.y() - loc.y());
-      // if(debug_print) printf("[GETPPC]: particleloc x: %f particleloc y: %f\n",
-      //     loc.x(), loc.y());
+
       // check for intersection with this line and the map line
-      
       Vector2f intersection_point; // Return variable
       bool intersects = map_line.Intersection(my_line, &intersection_point);
-      // printf("%ld [GPPC]: rmpt x: %f, rmpt y: %f alpha: %f\n", 
-      // i, rm_pt.x(), rm_pt.y(), alpha);
       
       if (intersects) {
         // if intersection exists, "first" collision wins
@@ -139,12 +133,12 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
           scan_min_dists[i] = curr_dist;
           scan[i] = intersection_point;
         }
-        // printf("[GETPPC]: intersection_point x: %f intersection_point y: %f\n",
-        //     intersection_point.x(), intersection_point.y());
-      } else {
-        if(scan[i].x() == 0 && scan[i].y() == 0) scan[i] = rm_pt;
+      } else if(scan_min_dists[i] == std::numeric_limits<float>::max()) {
+        scan[i] = rm_pt;
+        scan_min_dists[i] = std::numeric_limits<float>::max() - 1;
       }
     }
+
   }
 }
 
@@ -191,14 +185,17 @@ void ParticleFilter::Update(const vector<float>& ranges,
   // tunable param: num_ranges->aka the 10 thing.
   int num_ranges = ranges.size() / ith_ray;
   std::vector<Eigen::Vector2f> scan_ptr(num_ranges);
+  for(int i = 0; i < num_ranges; i++) {
+    scan_ptr[i] = Vector2f(0, 0);
+  }
   // pass in robot's location and angle for loc and angle
 
   // use map-relative location actually
   // num_ranges should equal something like (angle_max - angle_min) / 10, so every 10 degrees we use the lidar range
   // use GetPredictedPointCloud to predict expected observations for particle conditioned on the map
   // GetPredictedPointCloud((Eigen::Vector2f const) loc, angle, num_ranges, range_min, range_max, angle_min, angle_max, &scan_ptr);
-  printf("[UPDATE]: p_loc x: %f, p_loc y: %f, p_loc angle: %f\n", 
-      p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
+  // printf("[UPDATE]: p_loc x: %f, p_loc y: %f, p_loc angle: %f\n", 
+  //     p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
   GetPredictedPointCloud(p_ptr->loc, p_ptr->angle, ranges.size(), range_min, range_max, angle_min, angle_max, &scan_ptr);
   // compare particle observation to prediction
   double log_lik = 0.0;
@@ -214,13 +211,24 @@ void ParticleFilter::Update(const vector<float>& ranges,
     float s_hat = s_hat_dist - range_min;
     // s is the range, aka dist from laser to endpoint of observed
     float s = ranges[i * ith_ray]; // TUNABLE: every 10th laser?
-    log_lik += pow((s - s_hat), 2) / divisor;
+    // printf("[UPDATE]: s_hat: %f,s: %f\n", 
+    //   s_hat, s);
+    float delta = pow((s - s_hat), 2) / divisor;
+    if(delta > 1000000) {
+      printf("SCARILY LARGE S DELTA DETECTED?\n");
+      printf("scan_ptr x: %f, scan_ptr y: %f, pptr x: %f, pptr y: %f, s_hat: %f, s: %f, delta: %f\n", scan_ptr[i].x(), scan_ptr[i].y(), p_ptr->loc.x(), p_ptr->loc.y(), s_hat, s, delta);
+    }
+    log_lik += delta;
     // if(debug_print) printf("[UPDATE]: %ld s_hat: %f s: %f log_lik: %f\n",
     //     i, s_hat, s, log_lik);
   }
   // assign weight to particle, times gamma
   p_ptr->weight = log_lik * 2 / num_ranges * -1;
-  
+  if(p_ptr->weight > 1000000) {
+      printf("RESULTING IN CONCERNINGLY LARGE PARTICLE WEIGHT?\n");
+      printf("weight: %f, particle x: %f, particle y: %f, particle angle: %f\n", p_ptr->weight, p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
+      printf("log_lik: %f", log_lik);
+  }
 }
 
 
@@ -277,7 +285,7 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
                                   float angle_max) {
   // A new laser scan observation is available (in the laser frame)
   // Call the Update and Resample steps as necessary.
-  printf("[OBSERVELASER INVOKED]\n");
+  // printf("[OBSERVELASER INVOKED]\n");
   // TODO STEP 1: figure out how to call update
   // tunable param: d
   // if we have traveled at least distance d and sensor data is available
@@ -291,11 +299,11 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
     if (particles_[i].weight == 0) continue;
     ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max, &(particles_[i]));
     double likelihood = particles_[i].weight;
-    if(max_likelihood < likelihood) max_likelihood = likelihood;
+    if(max_likelihood > likelihood) max_likelihood = likelihood;
   }
   // normalize all weights (see 16 - Problems with Particle Filters slide 10)
   for (size_t i = 0; i < FLAGS_num_particles; ++i) {
-    printf("[OBSERVELASER]: max_like: %f weight: %f reset weight: %f\n", max_likelihood, particles_[i].weight, (particles_[i].weight - max_likelihood));
+    // printf("[OBSERVELASER]: max_like: %f weight: %f reset weight: %f\n", max_likelihood, particles_[i].weight, (particles_[i].weight - max_likelihood));
     if(particles_[i].weight == 0) continue;
     particles_[i].weight = abs((particles_[i].weight - max_likelihood));
     sum_weight += particles_[i].weight;
@@ -485,20 +493,20 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
 
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
     if(particles_[i].weight == 0) continue;
-    if(debug_print) printf("[GETLOCATION] xwhy: %f  ywhy: %f  anglewhy: %f  weight: %f\n", 
-        particles_[i].loc.x(), particles_[i].loc.y(), particles_[i].angle, particles_[i].weight);
-    x_locs += particles_[i].loc.x() * particles_[i].weight;
-    y_locs += particles_[i].loc.y() * particles_[i].weight;
-    sines += sin(particles_[i].angle);
-    cosines += cos(particles_[i].angle);
+    // printf("[GETLOCATION] xwhy: %f  ywhy: %f  anglewhy: %f  weight: %f\n", 
+    //     particles_[i].loc.x(), particles_[i].loc.y(), particles_[i].angle, particles_[i].weight);
+    // temporarily have removed the weighted mean calculation
+    x_locs += particles_[i].loc.x();
+    y_locs += particles_[i].loc.y();
+    sines += sin(particles_[i].angle) / num_valid_particles;
+    cosines += cos(particles_[i].angle) / num_valid_particles;
   }
-  if(debug_print) printf("[GETLOCATION] x sum: %f  y sum: %f  sines: %f  cosines: %f  sum_weight: %f\n", 
+  printf("[GETLOCATION] x sum: %f  y sum: %f  sines: %f  cosines: %f  sum_weight: %f\n", 
       x_locs, y_locs, sines, cosines, sum_weight);
-  loc.x() = x_locs / sum_weight;
-  loc.y() = y_locs / sum_weight;
-  assert(num_valid_particles != 0);
-  angle = atan2(sines / num_valid_particles, cosines / num_valid_particles);
-  if(debug_print) printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n", 
+  loc.x() = x_locs / num_valid_particles;
+  loc.y() = y_locs / num_valid_particles;
+  angle = atan2(sines, cosines);
+  printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n", 
       loc.x(), loc.y(), angle);
 }
 

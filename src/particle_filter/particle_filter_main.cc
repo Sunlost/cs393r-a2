@@ -127,6 +127,7 @@ void PublishPredictedScan() {
       &predicted_scan);
   for (const Vector2f& p : predicted_scan) {
     DrawPoint(p, kColor, vis_msg_);
+    DrawLine(p, robot_loc, 0xA29328,vis_msg_);
   }
 }
 
