@@ -49,7 +49,7 @@ using math_util::RadToDeg;
 
 using vector_map::VectorMap;
 
-DEFINE_double(num_particles, 80, "Number of particles");
+DEFINE_double(num_particles, 40, "Number of particles");
 
 namespace particle_filter {
 
@@ -237,7 +237,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
 
 
 void ParticleFilter::Resample() {
-  if(debug_print) printf("[RESAMPLE]\n");
+  // printf("[RESAMPLE]\n");
   vector<Particle> new_particles;
 
   double step_size = sum_weight / FLAGS_num_particles;
@@ -305,6 +305,7 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
     // printf("[OBSERVELASER]: max_like: %f weight: %f reset weight: %f\n", max_likelihood, particles_[i].weight, (particles_[i].weight - max_likelihood));
     if(particles_[i].weight == 0) continue;
     particles_[i].weight = abs((particles_[i].weight - max_likelihood));
+    if(particles_[i].weight == 0) num_valid_particles--;
     sum_weight += particles_[i].weight;
   }
   num_updates_done++;
@@ -374,8 +375,8 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
       // prev_odom_loc_.x(), prev_odom_loc_.y(), prev_odom_angle_);
   
   // tunable parameters
-  float k_1 = 0.001; //   x,y stddev's   mag(x,y) weight
-  float k_2 = 0.01; //   x,y stddev's   mag(theta) weight
+  float k_1 = 0.0001; //   x,y stddev's   mag(x,y) weight
+  float k_2 = 0.0001; //   x,y stddev's   mag(theta) weight
   float k_3 = 0.001; // theta stddev's   mag(x,y) weight
   float k_4 = 0.00001; // theta stddev's   mag(theta) weight
 
@@ -491,7 +492,10 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   double cosines = 0.0;
 
   for (size_t i = 0; i < FLAGS_num_particles; ++i){
-    if(particles_[i].weight == 0) continue;
+    if(particles_[i].weight == 0) {
+      // printf("getloc skip %ld\n", i);
+      continue;
+    }
     // printf("[GETLOCATION] xwhy: %f  ywhy: %f  anglewhy: %f  weight: %f\n", 
     //     particles_[i].loc.x(), particles_[i].loc.y(), particles_[i].angle, particles_[i].weight);
     // temporarily have removed the weighted mean calculation
@@ -505,7 +509,7 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
   loc.x() = x_locs / num_valid_particles;
   loc.y() = y_locs / num_valid_particles;
   angle = atan2(sines, cosines);
-  // printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n", 
+  // printf("[GETLOCATION] predicted x: %f   predicted y: %f   predicted angle: %f\n\n", 
   //     loc.x(), loc.y(), angle);
 }
 
