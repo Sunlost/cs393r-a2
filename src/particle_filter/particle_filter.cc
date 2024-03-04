@@ -144,18 +144,18 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
 
 
 
-float calc_variance(const vector<float>& ranges) {
-    float avg = 0;
-    for(size_t i = 0; i < ranges.size(); ++i) {
-        avg += ranges[i];
-    }
-    avg /= ranges.size();
-    float variance = 0;
-    for(size_t i = 0; i < ranges.size(); ++i) {
-        variance += (ranges[i] - avg) * (ranges[i] - avg);
-    }
-    return variance /= ranges.size();
-}
+// float calc_variance(const vector<float>& ranges) {
+//     float avg = 0;
+//     for(size_t i = 0; i < ranges.size(); ++i) {
+//         avg += ranges[i];
+//     }
+//     avg /= ranges.size();
+//     float variance = 0;
+//     for(size_t i = 0; i < ranges.size(); ++i) {
+//         variance += (ranges[i] - avg) * (ranges[i] - avg);
+//     }
+//     return variance /= ranges.size();
+// }
 
 
 
@@ -188,21 +188,21 @@ void ParticleFilter::Update(const vector<float>& ranges,
         float s = ranges[i * ith_ray];
         float delta = pow((s - s_hat), 2) / divisor;
 
-        if(delta > 1000000) {
-            printf("SCARILY LARGE S DELTA DETECTED?\n");
-            printf("scan_ptr x: %f, scan_ptr y: %f, pptr x: %f, pptr y: %f, s_hat: %f, s: %f, delta: %f\n", scan_ptr[i].x(), scan_ptr[i].y(), p_ptr->loc.x(), p_ptr->loc.y(), s_hat, s, delta);
-        }
+        // if(delta > 1000000) {
+        //     printf("SCARILY LARGE S DELTA DETECTED?\n");
+        //     printf("scan_ptr x: %f, scan_ptr y: %f, pptr x: %f, pptr y: %f, s_hat: %f, s: %f, delta: %f\n", scan_ptr[i].x(), scan_ptr[i].y(), p_ptr->loc.x(), p_ptr->loc.y(), s_hat, s, delta);
+        // }
 
         log_lik += delta;
     }
 
     p_ptr->weight = log_lik * 2 / num_ranges * -1;
 
-    if(p_ptr->weight > 1000000) {
-        printf("RESULTING IN CONCERNINGLY LARGE PARTICLE WEIGHT?\n");
-        printf("weight: %f, particle x: %f, particle y: %f, particle angle: %f\n", p_ptr->weight, p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
-        printf("log_lik: %f", log_lik);
-    }
+    // if(p_ptr->weight > 1000000) {
+    //     printf("RESULTING IN CONCERNINGLY LARGE PARTICLE WEIGHT?\n");
+    //     printf("weight: %f, particle x: %f, particle y: %f, particle angle: %f\n", p_ptr->weight, p_ptr->loc.x(), p_ptr->loc.y(), p_ptr->angle);
+    //     printf("log_lik: %f", log_lik);
+    // }
 
 }
 
@@ -213,7 +213,6 @@ void ParticleFilter::Update(const vector<float>& ranges,
 
 
 void ParticleFilter::Resample() {
-    // printf("[RESAMPLE]\n");
     vector<Particle> new_particles;
 
     double step_size = sum_weight / FLAGS_num_particles;
@@ -297,12 +296,7 @@ double magnitude(float x, float y) {
 
 void ParticleFilter::Predict(const Vector2f& odom_loc,
                              const float odom_angle) {
-    if(debug_print) printf("[PREDICT] GIVEN LOC // x: %f, y: %f, angle: %f\n", odom_loc.x(), odom_loc.y(), odom_angle);
-
     if (!odom_initialized_) {
-    
-        if(debug_print) printf("[PREDICT] FIRST PREDICT -- CANCELLED EARLY\n");
-
         prev_odom_loc_.x() = odom_loc.x();
         prev_odom_loc_.y() = odom_loc.y();
         prev_odom_angle_ = odom_angle;
@@ -341,10 +335,6 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
         particles_[i].loc.x() = T_map.x() + e_x;
         particles_[i].loc.y() = T_map.y() + e_y;
         particles_[i].angle += theta_hat + e_theta;
-
-        if(debug_print) printf("[PREDICT] e x: %f e y: %f e angle: %f\n", e_x, e_y, e_theta);
-        if(debug_print) printf("[PREDICT] x hat: %f y hat: %f angle hat: %f\n", x_hat, y_hat, theta_hat);
-        if(debug_print) printf("[PREDICT] particle x: %f particle y: %f particle angle: %f\n", particles_[i].loc.x(), particles_[i].loc.y(), particles_[i].angle);
         
         line2f particle_line(T_map_one.x(), T_map_one.y(), particles_[i].loc.x(), particles_[i].loc.y());
 
@@ -415,9 +405,7 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
     double cosines = 0.0;
 
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
-        if(particles_[i].weight == 0) {
-            continue;
-        }
+        if(particles_[i].weight == 0) continue;
         // printf("getlocation -- particle[%ld] -- weight: %f\n", i, particles_[i].weight);
         x_locs += particles_[i].loc.x();
         y_locs += particles_[i].loc.y();
