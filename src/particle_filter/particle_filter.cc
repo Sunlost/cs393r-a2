@@ -59,7 +59,7 @@ ParticleFilter::ParticleFilter() :
     prev_odom_loc_(0, 0),
     prev_odom_angle_(0),
     odom_initialized_(false),
-    sum_weight(FLAGS_num_particles),
+    sum_weight(1),
     num_valid_particles(FLAGS_num_particles),
     num_updates_done(0),
     num_updates_reqd_for_resample(3),
@@ -178,7 +178,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
     
     GetPredictedPointCloud(p_ptr->loc, p_ptr->angle, ranges.size(), range_min, range_max, angle_min, angle_max, &scan_ptr);
     double log_lik = 0.0;
-    float divisor = 0.01;
+    float divisor = 0.05;
     // robustification will be on 14 - Expecting The Unexpected slide 28
     for (size_t i = 0; i < scan_ptr.size(); ++i) {
         // s_hat is (dist btwn laser and scan[i] points) - range_min
@@ -222,6 +222,7 @@ void ParticleFilter::Resample() {
     } 
     double step_size = sum_weight / FLAGS_num_particles;
     double new_weight = 1 / FLAGS_num_particles;
+    sum_weight = 1;
     double last = rng_.UniformRandom(0, step_size) - step_size;
     int index = 0;
     double sum = 0;
@@ -332,19 +333,22 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     Vector2f T_delta_bl = r_prev_odom * T_odom;
     // printf("[predict] t_delta_bl x: %f, y: %f, norm: %f\n", T_delta_bl.x(), T_delta_bl.y(), T_delta_bl.norm());
 
-    printf("\n\n\n\nT_delta_bl: x: %f, y: %f, theta: %f\n", T_delta_bl.x(), T_delta_bl.y(), odom_angle);
+    // printf("\n\n\n\nT_delta_bl: x: %f, y: %f, theta: %f\n", T_delta_bl.x(), T_delta_bl.y(), odom_angle);
     
     // tunable parameters
-    float k_1 = 0.005;  //   x,y stddev's   mag(x,y) weight
-    float k_2 = 0.005;  //   x,y stddev's   mag(theta) weight
-    float k_3 = 0.01;   // theta stddev's   mag(x,y) weight
-    float k_4 = 0.005; // theta stddev's   mag(theta) weight
+    float k_1 = 0.5;  //   x,y stddev's   mag(x,y) weight
+    float k_2 = 0.05;  //   x,y stddev's   mag(theta) weight
+    float k_3 = 0.1;   // theta stddev's   mag(x,y) weight
+    float k_4 = 0.05; // theta stddev's   mag(theta) weight
+
+    // float particle_x_hat = 0;
+    // float particle_y_hat = 0;
+    // float particle_theta_hat = 0;
 
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
         // if(particles_[i].weight == 0) continue;
         Eigen::Rotation2Df r_map(particles_[i].angle);
         Vector2f T_map_one(particles_[i].loc.x(), particles_[i].loc.y());
-        Vector2f T_map = T_map_one + r_map * T_delta_bl;
 
         double xy_stddev = k_1*T_delta_bl.norm() + k_2*abs(theta_hat);
         double theta_stddev = k_3*T_delta_bl.norm() + k_4*abs(theta_hat);
@@ -361,15 +365,22 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
             e_theta = rng_.Gaussian(0.0, theta_stddev);
         }
 
-        printf("particle[%ld] old x: %f -> new x: %f\n", i, particles_[i].loc.x(), T_map.x() + e_x);
-        printf("particle[%ld] old y: %f -> new y: %f\n", i, particles_[i].loc.y() , T_map.y() + e_y);
-        printf("particle[%ld] old theta: %f -> new theta: %f\n\n", i, particles_[i].angle, particles_[i].angle + theta_hat + e_theta);
+        Vector2f noise(e_x, e_y);
+        Vector2f T_map = T_map_one + r_map * (T_delta_bl + noise);
 
-        particles_[i].loc.x() = T_map.x() + e_x;
-        particles_[i].loc.y() = T_map.y() + e_y;
+        // printf("particle[%ld] old x: %f -> new x: %f\n", i, particles_[i].loc.x(), T_map.x());
+        // printf("particle[%ld] old y: %f -> new y: %f\n", i, particles_[i].loc.y() , T_map.y());
+        // printf("particle[%ld] old theta: %f -> new theta: %f\n\n", i, particles_[i].angle, particles_[i].angle + theta_hat + e_theta);
+
+        particles_[i].loc.x() = T_map.x();
+        particles_[i].loc.y() = T_map.y();
         particles_[i].angle += theta_hat + e_theta;
+
+        // particle_x_hat += (r_map * T_delta_bl).x() + e_x;
+        // particle_y_hat += (r_map * T_delta_bl).y() + e_y;
+        // particle_theta_hat += theta_hat + e_theta;
         
-        line2f particle_line(T_map_one.x(), T_map_one.y(), particles_[i].loc.x(), particles_[i].loc.y());
+        // line2f particle_line(T_map_one.x(), T_map_one.y(), particles_[i].loc.x(), particles_[i].loc.y());
 
         // for (size_t j = 0; j < map_.lines.size(); ++j) {
         //     const line2f map_line = map_.lines[j];
@@ -381,6 +392,10 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
         //     } 
         // }
     }
+
+    // printf("\n particle x hat: %f, actual odom x hat: %f\n");
+    // printf("particle x hat: %f, actual odom x hat: %f\n");
+    // printf("particle x hat: %f, actual odom x hat: %f\n");
 
     prev_odom_loc_ = odom_loc;
     prev_odom_angle_ = odom_angle;
@@ -438,18 +453,28 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
     double sines = 0.0;
     double cosines = 0.0;
 
+    double local_sum_weight = 0;
+
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
-        // if(particles_[i].weight == 0) continue;
+        if(particles_[i].weight == 0) continue;
         // printf("getlocation -- particle[%ld] -- weight: %f\n", i, particles_[i].weight);
-        x_locs += particles_[i].loc.x();
-        y_locs += particles_[i].loc.y();
-        sines += sin(particles_[i].angle) / num_valid_particles;
-        cosines += cos(particles_[i].angle) / num_valid_particles;
+        x_locs += particles_[i].loc.x() * particles_[i].weight;
+        y_locs += particles_[i].loc.y() * particles_[i].weight;
+        sines += sin(particles_[i].angle) * particles_[i].weight;
+        cosines += cos(particles_[i].angle) * particles_[i].weight;
+        local_sum_weight += particles_[i].weight;
     }
 
-    loc.x() = x_locs / num_valid_particles;
-    loc.y() = y_locs / num_valid_particles;
-    angle = atan2(sines, cosines);
+    if(sum_weight == 0) {
+        printf("this location is probably wrong, sum_weight==0\n");
+        loc.x() = x_locs / 1;
+        loc.y() = y_locs / 1;
+        angle = atan2(sines / 1, cosines / 1);
+    } else {
+        loc.x() = x_locs / local_sum_weight;
+        loc.y() = y_locs / local_sum_weight;
+        angle = atan2(sines / local_sum_weight, cosines / local_sum_weight) ;
+    }
 }
 
 
