@@ -63,6 +63,7 @@ ParticleFilter::ParticleFilter() :
     num_valid_particles(FLAGS_num_particles),
     num_updates_done(0),
     num_updates_reqd_for_resample(3),
+    dist_traveled(0),
     ith_ray(10),
     deg_offset(ith_ray * laser_ang_deg_res),
     debug_print(false) {}
@@ -180,6 +181,12 @@ void ParticleFilter::Update(const vector<float>& ranges,
     double log_lik = 0.0;
     float divisor = 0.05;
     // robustification will be on 14 - Expecting The Unexpected slide 28
+    float d_short = 1;
+    float d_short_squared = pow(d_short, 2);
+    float d_long = 8;
+    float d_long_squared = pow(d_long, 2);
+    float delta = 0;
+
     for (size_t i = 0; i < scan_ptr.size(); ++i) {
         // s_hat is (dist btwn laser and scan[i] points) - range_min
         // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
@@ -187,7 +194,15 @@ void ParticleFilter::Update(const vector<float>& ranges,
         double s_hat_dist = sqrt(pow(scan_ptr[i].x() - p_ptr->loc.x(), 2) + pow(scan_ptr[i].y() - p_ptr->loc.y(), 2));
         float s_hat = s_hat_dist - range_min;
         float s = ranges[i * ith_ray];
-        float delta = pow((s - s_hat), 2) / divisor;
+         if (s < range_min || s > range_max) {
+          continue;
+        } else if (s < s_hat - d_short) {
+          delta = d_short_squared / divisor;
+        } else if (s > s_hat + d_long) {
+          delta = d_long_squared / divisor;
+        } else {
+          delta = pow((s - s_hat), 2) / divisor;
+        }
 
         // if(delta > 1000000) {
         //     printf("SCARILY LARGE S DELTA DETECTED?\n");
@@ -271,6 +286,11 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
     // printf("observelaser\n");
     sum_weight = 0;
     double max_likelihood = 0;
+    // aka if dist_traveled < 0.387298335 meters
+    // TUNABLE: the .15 thing
+    if (dist_traveled < .15) return;
+    dist_traveled = 0;
+
     for (size_t i = 0; i < FLAGS_num_particles; ++i) {
         // if (particles_[i].weight == 0) continue;
         ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max, &(particles_[i]));
@@ -330,6 +350,9 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     }
 
     Vector2f T_odom(x_hat, y_hat);
+    // squared version
+    dist_traveled += pow(x_hat, 2) + pow(y_hat, 2);
+
     Vector2f T_delta_bl = r_prev_odom * T_odom;
     // printf("[predict] t_delta_bl x: %f, y: %f, norm: %f\n", T_delta_bl.x(), T_delta_bl.y(), T_delta_bl.norm());
 
@@ -420,6 +443,7 @@ void ParticleFilter::Initialize(const string& map_file,
     num_valid_particles = FLAGS_num_particles;
     odom_initialized_ = false;
     num_updates_done = 0;
+    dist_traveled = 0;
     double new_weights = 1 / FLAGS_num_particles;
     // initialize vector of particles with GetParticles
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
