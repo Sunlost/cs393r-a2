@@ -169,6 +169,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
                             float angle_min,
                             float angle_max,
                             Particle* p_ptr) {
+    // printf("update\n");
     int num_ranges = ranges.size() / ith_ray;
     std::vector<Eigen::Vector2f> scan_ptr(num_ranges);
     for(int i = 0; i < num_ranges; i++) {
@@ -213,21 +214,29 @@ void ParticleFilter::Update(const vector<float>& ranges,
 
 
 void ParticleFilter::Resample() {
+    // printf("resample\n");
     vector<Particle> new_particles;
-
+    if(sum_weight == 0) {
+        printf("sum is zero, returning early from resample\n");
+        return; 
+    } 
     double step_size = sum_weight / FLAGS_num_particles;
     double new_weight = 1 / FLAGS_num_particles;
     double last = rng_.UniformRandom(0, step_size) - step_size;
     int index = 0;
     double sum = 0;
 
+    // printf("resample: sum_weight: %f, step_size: %f, new_weight: %f, last: %f, index: %d, sum: %f\n", sum_weight, step_size, new_weight, last, index, sum);
+
     while(new_particles.size() < FLAGS_num_particles) {
-        if(particles_[index].weight == 0) {
-            index++;
-            continue;
-        }
+        // printf("resample outer loop\n");
+        // if(particles_[index].weight == 0) {
+        //     index++;
+        //     continue;
+        // }
         sum += particles_[index].weight;
         while(last + step_size < sum) {
+            // printf("resample inner loop\n");
             Particle p;
             p.loc.x() = particles_[index].loc.x();
             p.loc.y() = particles_[index].loc.y();
@@ -239,6 +248,7 @@ void ParticleFilter::Resample() {
         index++;
     }
 
+    // printf("done resampling\n");
     // After resampling:
     particles_ = new_particles;
     num_valid_particles = FLAGS_num_particles;
@@ -257,19 +267,20 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
                                   float range_max,
                                   float angle_min,
                                   float angle_max) {
+    // printf("observelaser\n");
     sum_weight = 0;
     double max_likelihood = 0;
     for (size_t i = 0; i < FLAGS_num_particles; ++i) {
-        if (particles_[i].weight == 0) continue;
+        // if (particles_[i].weight == 0) continue;
         ParticleFilter::Update(ranges, range_min, range_max, angle_min, angle_max, &(particles_[i]));
         double likelihood = particles_[i].weight;
         if(max_likelihood > likelihood) max_likelihood = likelihood;
     }
     // normalize all weights (see 16 - Problems with Particle Filters slide 10)
     for (size_t i = 0; i < FLAGS_num_particles; ++i) {
-        if(particles_[i].weight == 0) continue;
+        // if(particles_[i].weight == 0) continue;
         particles_[i].weight = abs((particles_[i].weight - max_likelihood));
-        if(particles_[i].weight == 0) num_valid_particles--;
+        // if(particles_[i].weight == 0) num_valid_particles--;
         sum_weight += particles_[i].weight;
     }
     num_updates_done++;
@@ -296,6 +307,8 @@ double magnitude(float x, float y) {
 
 void ParticleFilter::Predict(const Vector2f& odom_loc,
                              const float odom_angle) {
+
+    // printf("[predict]\n");
     if (!odom_initialized_) {
         prev_odom_loc_.x() = odom_loc.x();
         prev_odom_loc_.y() = odom_loc.y();
@@ -306,31 +319,51 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
 
     double x_hat = odom_loc.x() - prev_odom_loc_.x();
     double y_hat = odom_loc.y() - prev_odom_loc_.y();
+    double theta_hat = odom_angle - prev_odom_angle_;
+
     Eigen::Rotation2Df r_prev_odom(-prev_odom_angle_);
+
+    if(x_hat == 0 && y_hat == 0 && theta_hat == 0) {
+        // printf("no movement, returning early\n");
+        return;
+    }
 
     Vector2f T_odom(x_hat, y_hat);
     Vector2f T_delta_bl = r_prev_odom * T_odom;
+    // printf("[predict] t_delta_bl x: %f, y: %f, norm: %f\n", T_delta_bl.x(), T_delta_bl.y(), T_delta_bl.norm());
 
-    double theta_hat = odom_angle - prev_odom_angle_;
+    printf("\n\n\n\nT_delta_bl: x: %f, y: %f, theta: %f\n", T_delta_bl.x(), T_delta_bl.y(), odom_angle);
     
     // tunable parameters
-    float k_1 = 0.0001;  //   x,y stddev's   mag(x,y) weight
-    float k_2 = 0.0001;  //   x,y stddev's   mag(theta) weight
-    float k_3 = 0.001;   // theta stddev's   mag(x,y) weight
-    float k_4 = 0.00001; // theta stddev's   mag(theta) weight
+    float k_1 = 0.005;  //   x,y stddev's   mag(x,y) weight
+    float k_2 = 0.005;  //   x,y stddev's   mag(theta) weight
+    float k_3 = 0.01;   // theta stddev's   mag(x,y) weight
+    float k_4 = 0.005; // theta stddev's   mag(theta) weight
 
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
-        if(particles_[i].weight == 0) continue;
+        // if(particles_[i].weight == 0) continue;
         Eigen::Rotation2Df r_map(particles_[i].angle);
         Vector2f T_map_one(particles_[i].loc.x(), particles_[i].loc.y());
         Vector2f T_map = T_map_one + r_map * T_delta_bl;
 
-        double xy_stddev = k_1*magnitude(T_map.x(), T_map.y()) + k_2*abs(theta_hat);
-        double theta_stddev = k_3*magnitude(T_map.x(), T_map.y()) + k_4*abs(theta_hat);
+        double xy_stddev = k_1*T_delta_bl.norm() + k_2*abs(theta_hat);
+        double theta_stddev = k_3*T_delta_bl.norm() + k_4*abs(theta_hat);
 
-        float e_x = rng_.Gaussian(0.0, xy_stddev);
-        float e_y = rng_.Gaussian(0.0, xy_stddev);
-        float e_theta = rng_.Gaussian(0.0, theta_stddev);
+        float e_x = 0;
+        float e_y = 0;
+        float e_theta = 0;
+
+        if(xy_stddev != 0) {
+            e_x = rng_.Gaussian(0.0, xy_stddev);
+            e_y = rng_.Gaussian(0.0, xy_stddev);
+        }
+        if(theta_stddev != 0) {
+            e_theta = rng_.Gaussian(0.0, theta_stddev);
+        }
+
+        printf("particle[%ld] old x: %f -> new x: %f\n", i, particles_[i].loc.x(), T_map.x() + e_x);
+        printf("particle[%ld] old y: %f -> new y: %f\n", i, particles_[i].loc.y() , T_map.y() + e_y);
+        printf("particle[%ld] old theta: %f -> new theta: %f\n\n", i, particles_[i].angle, particles_[i].angle + theta_hat + e_theta);
 
         particles_[i].loc.x() = T_map.x() + e_x;
         particles_[i].loc.y() = T_map.y() + e_y;
@@ -338,15 +371,15 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
         
         line2f particle_line(T_map_one.x(), T_map_one.y(), particles_[i].loc.x(), particles_[i].loc.y());
 
-        for (size_t j = 0; j < map_.lines.size(); ++j) {
-            const line2f map_line = map_.lines[j];
-            Vector2f intersection_point;
-            bool intersects = map_line.Intersection(particle_line, &intersection_point);
-            if (intersects) {
-                particles_[i].weight = 0;
-                num_valid_particles--;
-            } 
-        }
+        // for (size_t j = 0; j < map_.lines.size(); ++j) {
+        //     const line2f map_line = map_.lines[j];
+        //     Vector2f intersection_point;
+        //     bool intersects = map_line.Intersection(particle_line, &intersection_point);
+        //     if (intersects) {
+        //         particles_[i].weight = 0;
+        //         num_valid_particles--;
+        //     } 
+        // }
     }
 
     prev_odom_loc_ = odom_loc;
@@ -362,7 +395,7 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
 void ParticleFilter::Initialize(const string& map_file,
                                 const Vector2f& loc,
                                 const float angle) {
-    if(debug_print) printf("INITIALIZED!\n");
+    // printf("INITIALIZED!\n");
 
     map_.Load(map_file);
     vector<Particle> new_particles;
@@ -396,6 +429,7 @@ void ParticleFilter::Initialize(const string& map_file,
 
 void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr, 
                                  float* angle_ptr) const {
+    // printf("getlocation\n");
     Vector2f& loc = *loc_ptr;
     float& angle = *angle_ptr;
 
@@ -405,7 +439,7 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
     double cosines = 0.0;
 
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
-        if(particles_[i].weight == 0) continue;
+        // if(particles_[i].weight == 0) continue;
         // printf("getlocation -- particle[%ld] -- weight: %f\n", i, particles_[i].weight);
         x_locs += particles_[i].loc.x();
         y_locs += particles_[i].loc.y();
