@@ -118,6 +118,7 @@ class ParticleFilter {
   // what number of degrees need to "skipped" to accomodate how many rays
   // we want to sample by.
   float deg_offset;
+  float dist_travelled;
 
   bool debug_print;
 };
