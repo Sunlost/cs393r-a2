@@ -114,7 +114,7 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
             // Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), );
             float cosalpha = cos(alpha);
             float sinalpha = sin(alpha);
-            Eigen::Vector2f min_pt(range_min * sinalpha + laser_loc.x(), range_min * cosalpha + laser_loc.y());
+            Eigen::Vector2f min_pt(range_min * sinalpha + laser_loc.x(), range_min * cosalpha + laser_loc.y()); 
             rm_pt.x() = range_max * cosalpha + laser_loc.x();
             rm_pt.y() = range_max * sinalpha + laser_loc.y();
             line2f my_line(min_pt.x(), min_pt.y(), rm_pt.x(), rm_pt.y());
@@ -191,10 +191,13 @@ void ParticleFilter::Update(const vector<float>& ranges,
         // s_hat is (dist btwn laser and scan[i] points) - range_min
         // TUNABLE: check if this should be sqnorm instead of norm if particle filter is slow
         // TODO: check if I need to subtract laser_loc.x and .y from here (and also figure out how to calc that)
-        double s_hat_dist = sqrt(pow(scan_ptr[i].x() - p_ptr->loc.x(), 2) + pow(scan_ptr[i].y() - p_ptr->loc.y(), 2));
+        
+        Vector2f s_hat_pts(scan_ptr[i] - p_ptr->loc);
+        double s_hat_dist = s_hat_pts.norm();
         float s_hat = s_hat_dist - range_min;
-        float s = ranges[i * ith_ray];
-         if (s < range_min || s > range_max) {
+        float s = ranges[i * ith_ray] - range_min;
+        // range_min 0.020000, range_max 10.000000
+        if (s < range_min || s > range_max) {
           continue;
         } else if (s < s_hat - d_short) {
           delta = d_short_squared / divisor;
