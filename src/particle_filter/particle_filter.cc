@@ -64,6 +64,7 @@ ParticleFilter::ParticleFilter() :
     num_updates_done(0),
     num_updates_reqd_for_resample(3),
     dist_traveled(0),
+    rads_rotated(0),
     ith_ray(10),
     deg_offset(ith_ray * laser_ang_deg_res),
     debug_print(false) {}
@@ -114,10 +115,12 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
             // Eigen::Vector2f rm_pt(range_max * sin(alpha) + laser_loc.x(), );
             float cosalpha = cos(alpha);
             float sinalpha = sin(alpha);
-            Eigen::Vector2f min_pt(range_min * sinalpha + laser_loc.x(), range_min * cosalpha + laser_loc.y()); 
+            // If the actual lidar assumes the lidar as the start point, so should we. No need for a min_pt.
+            //Eigen::Vector2f min_pt(range_min * sinalpha + laser_loc.x(), range_min * cosalpha + laser_loc.y()); 
             rm_pt.x() = range_max * cosalpha + laser_loc.x();
             rm_pt.y() = range_max * sinalpha + laser_loc.y();
-            line2f my_line(min_pt.x(), min_pt.y(), rm_pt.x(), rm_pt.y());
+            line2f my_line(laser_loc.x(), laser_loc.y(), rm_pt.x(), rm_pt.y());
+            //line2f my_line(min_pt.x(), min_pt.y(), rm_pt.x(), rm_pt.y());
 
             // check for intersection with this line and the map line
             Vector2f intersection_point; // Return variable
@@ -291,8 +294,9 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
     double max_likelihood = 0;
     // aka if dist_traveled < 0.387298335 meters
     // TUNABLE: the .15 thing
-    if (dist_traveled < .15) return;
+    if (dist_traveled < .15 && rads_rotated < math_util::DegToRad(deg_offset)) return;
     dist_traveled = 0;
+    rads_rotated = 0;
 
     for (size_t i = 0; i < FLAGS_num_particles; ++i) {
         // if (particles_[i].weight == 0) continue;
@@ -355,6 +359,7 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     Vector2f T_odom(x_hat, y_hat);
     // squared version
     dist_traveled += pow(x_hat, 2) + pow(y_hat, 2);
+    rads_rotated += theta_hat;
 
     Vector2f T_delta_bl = r_prev_odom * T_odom;
     // printf("[predict] t_delta_bl x: %f, y: %f, norm: %f\n", T_delta_bl.x(), T_delta_bl.y(), T_delta_bl.norm());
@@ -362,10 +367,10 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     // printf("\n\n\n\nT_delta_bl: x: %f, y: %f, theta: %f\n", T_delta_bl.x(), T_delta_bl.y(), odom_angle);
     
     // tunable parameters
-    float k_1 = 0.5;  //   x,y stddev's   mag(x,y) weight
-    float k_2 = 0.05;  //   x,y stddev's   mag(theta) weight
-    float k_3 = 0.1;   // theta stddev's   mag(x,y) weight
-    float k_4 = 0.05; // theta stddev's   mag(theta) weight
+    float k_1 = 0.375;  //   x,y stddev's   mag(x,y) weight
+    float k_2 = 0.0375;  //   x,y stddev's   mag(theta) weight
+    float k_3 = 0.075;   // theta stddev's   mag(x,y) weight
+    float k_4 = 0.0375; // theta stddev's   mag(theta) weight
 
     // float particle_x_hat = 0;
     // float particle_y_hat = 0;
@@ -447,6 +452,7 @@ void ParticleFilter::Initialize(const string& map_file,
     odom_initialized_ = false;
     num_updates_done = 0;
     dist_traveled = 0;
+    rads_rotated = 0;
     double new_weights = 1 / FLAGS_num_particles;
     // initialize vector of particles with GetParticles
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
@@ -493,7 +499,7 @@ void ParticleFilter::GetLocation(Eigen::Vector2f* loc_ptr,
     }
 
     if(sum_weight == 0) {
-        printf("this location is probably wrong, sum_weight==0\n");
+        printf("this location is probably wrong, sum_weight==0, local_sum_weight==%f\n", local_sum_weight);
         loc.x() = x_locs / 1;
         loc.y() = y_locs / 1;
         angle = atan2(sines / 1, cosines / 1);

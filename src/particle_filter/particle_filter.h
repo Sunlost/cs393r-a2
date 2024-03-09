@@ -111,7 +111,7 @@ class ParticleFilter {
   int num_updates_done;
   int num_updates_reqd_for_resample;
   float dist_traveled;
-  
+  float rads_rotated;
   // Used to for LIDAR, we we want to sample every ith ray.
   // 10 was the recommended number to start with in the slides.
   int ith_ray;
