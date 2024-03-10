@@ -106,7 +106,6 @@ class ParticleFilter {
   float prev_odom_angle_;
   bool odom_initialized_;
 
-  double sum_weight;
   int num_valid_particles;
   int num_updates_done;
   int num_updates_reqd_for_resample;
@@ -119,6 +118,11 @@ class ParticleFilter {
   // what number of degrees need to "skipped" to accomodate how many rays
   // we want to sample by.
   float deg_offset;
+
+  mutable bool memoize_get_loc_valid;
+  mutable float memoized_get_loc_x;
+  mutable float memoized_get_loc_y;
+  mutable float memoized_get_loc_angle;
 
   bool debug_print;
 };
