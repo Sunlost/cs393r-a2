@@ -124,6 +124,9 @@ class ParticleFilter {
   mutable float memoized_get_loc_y;
   mutable float memoized_get_loc_angle;
 
+  bool scan_vector_size_set;
+  int scan_vector_size;
+
   bool debug_print;
 };
 }  // namespace slam

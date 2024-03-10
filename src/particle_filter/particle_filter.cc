@@ -90,10 +90,15 @@ void ParticleFilter::GetPredictedPointCloud(const Vector2f& loc,
                                             std::vector<Eigen::Vector2f>* scan_ptr) {
     std::vector<Eigen::Vector2f>& scan = *scan_ptr;
 
-    scan.resize(num_ranges / ith_ray);
+    if(num_ranges != 0 && !scan_vector_size_set) {
+        scan_vector_size = num_ranges / ith_ray;
+        scan_vector_size_set = true;
+    }
+
+    scan.resize(scan_vector_size);
 
     vector<float> scan_min_dists;
-    for(int i = 0; i < num_ranges / ith_ray; i++) scan_min_dists.push_back(std::numeric_limits<float>::max());
+    for(int i = 0; i < scan_vector_size; i++) scan_min_dists.push_back(std::numeric_limits<float>::max());
 
     Eigen::Vector2f laser_loc(0, 0);
     laser_loc.x() = loc.x() + sin(angle) * 0.2;
@@ -145,7 +150,7 @@ void ParticleFilter::Update(const vector<float>& ranges,
                             float angle_min,
                             float angle_max,
                             Particle* p_ptr) {
-    int num_ranges = ranges.size() / ith_ray;
+    int num_ranges = scan_vector_size;
     std::vector<Eigen::Vector2f> scan_ptr(num_ranges);
     for(int i = 0; i < num_ranges; i++) {
         scan_ptr[i] = Vector2f(0, 0);
@@ -229,6 +234,11 @@ void ParticleFilter::ObserveLaser(const vector<float>& ranges,
                                   float angle_min,
                                   float angle_max) {
     if (dist_traveled < .025 && rads_rotated < math_util::DegToRad(deg_offset)) return;
+
+    if(ranges.size() != 0 && !scan_vector_size_set) {
+        scan_vector_size = ranges.size() / ith_ray;
+        scan_vector_size_set = true;
+    }
 
     double min_likelihood = 0;
     dist_traveled = 0;
@@ -345,6 +355,7 @@ void ParticleFilter::Initialize(const string& map_file,
     dist_traveled = 0;
     rads_rotated = 0;
     double new_weights = 1 / FLAGS_num_particles;
+    scan_vector_size_set = false;
     // initialize vector of particles with GetParticles
     for (size_t i = 0; i < FLAGS_num_particles; ++i){
         Particle p = Particle();
