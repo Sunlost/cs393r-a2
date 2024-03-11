@@ -289,7 +289,10 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     Vector2f T_odom(x_hat, y_hat);
     // squared version
     dist_traveled += pow(x_hat, 2) + pow(y_hat, 2);
-    rads_rotated += theta_hat;
+
+    /* a small rotation may mask the change of a larger one if the two are of opposite direction,
+       so we use abs() of theta_hat */
+    rads_rotated += abs(theta_hat);
 
     Vector2f T_delta_bl = r_prev_odom * T_odom;
 
