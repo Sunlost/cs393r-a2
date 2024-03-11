@@ -162,11 +162,11 @@ void ParticleFilter::Update(const vector<float>& ranges,
     float divisor = 0.05;
     // robustification will be on 14 - Expecting The Unexpected slide 28
 
-    float d_short = 1;
-    float d_short_divided = 1;
+    float d_short = 3;
+    float d_short_divided = 180;
 
-    float d_long = 1;
-    float d_long_divided = 1;
+    float d_long = 8;
+    float d_long_divided = 1280;
     
     float delta = 0;
     for (size_t i = 0; i < scan_ptr.size(); ++i) {

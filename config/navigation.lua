@@ -10,7 +10,7 @@ NavigationParameters = {
     max_angular_deccel = 3.0;
     max_angular_speed = 1.0;
 
-    max_curvature = 5.0;
+    max_curvature = 1.0;
     max_path_length = 5.0;
     max_clearance = 1.0;
 
