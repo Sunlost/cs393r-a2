@@ -162,11 +162,11 @@ void ParticleFilter::Update(const vector<float>& ranges,
     float divisor = 0.05;
     // robustification will be on 14 - Expecting The Unexpected slide 28
 
-    float d_short = 5;
-    float d_short_divided = 500;
+    float d_short = 3;
+    float d_short_divided = 180;
 
-    float d_long = 6;
-    float d_long_divided = 720;
+    float d_long = 8;
+    float d_long_divided = 1280;
     
     float delta = 0;
     for (size_t i = 0; i < scan_ptr.size(); ++i) {
@@ -297,7 +297,7 @@ void ParticleFilter::Predict(const Vector2f& odom_loc,
     Vector2f T_delta_bl = r_prev_odom * T_odom;
 
     // tunable parameters
-    float k_1 = 0.5000;  //   x,y stddev's   mag(x,y) weight
+    float k_1 = 0.375000;  //   x,y stddev's   mag(x,y) weight
     float k_2 = 0.0375;  //   x,y stddev's   mag(theta) weight
     float k_3 = 0.0750;  // theta stddev's   mag(x,y) weight
     float k_4 = 0.0375;  // theta stddev's   mag(theta) weight      0.0375

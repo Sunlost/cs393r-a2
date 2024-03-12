@@ -309,9 +309,9 @@ void Navigation::Run() {
   }
 
   // Visualize pointcloud
-  for (auto point : fp_point_cloud_) {
-    visualization::DrawPoint(point, 0x7DFF00, local_viz_msg_);  // 32762
-  }
+  // for (auto point : fp_point_cloud_) {
+  //   visualization::DrawPoint(point, 0x7DFF00, local_viz_msg_);  // 32762
+  // }
 
   // Add timestamps to all messages.
   local_viz_msg_.header.stamp = ros::Time::now();
@@ -386,26 +386,26 @@ void Navigation::testSamplePaths(AckermannCurvatureDriveMsg& drive_msg) {
       params_.linear_limits, robot_vel_.norm(), params_.dt, drive_msg.velocity);
   drive_msg.curvature = best_path->curvature();
 
-  // Visualize paths
-  // int idx = 0;
-  for (auto path : paths) {
-    visualization::DrawPathOption(path->curvature(),
-                                  path->arc_length(),
-                                  path->clearance(),
-                                  32762,
-                                  false,
-                                  local_viz_msg_);
-    // cout << "idx: " << idx++ <<  ", Curvature: " << path->curvature() << " Arc
-    // Length: " << path->arc_length()
-    //      << " Clearance: " << path->clearance() << endl;
-  }
+  // // Visualize paths
+  // // int idx = 0;
+  // for (auto path : paths) {
+  //   visualization::DrawPathOption(path->curvature(),
+  //                                 path->arc_length(),
+  //                                 path->clearance(),
+  //                                 32762,
+  //                                 false,
+  //                                 local_viz_msg_);
+  //   // cout << "idx: " << idx++ <<  ", Curvature: " << path->curvature() << " Arc
+  //   // Length: " << path->arc_length()
+  //   //      << " Clearance: " << path->clearance() << endl;
+  // }
 
-  visualization::DrawPathOption(best_path->curvature(),
-                                best_path->arc_length(),
-                                best_path->clearance(),
-                                10000,
-                                false,
-                                local_viz_msg_);
+  // visualization::DrawPathOption(best_path->curvature(),
+  //                               best_path->arc_length(),
+  //                               best_path->clearance(),
+  //                               10000,
+  //                               false,
+  //                               local_viz_msg_);
 
   return;
 }
